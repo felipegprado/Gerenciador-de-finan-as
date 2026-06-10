@@ -1,25 +1,34 @@
 import java.time.LocalDate;
 
 public class Gasto extends Transacao {
-    private String frequencia; // "fixo", "parcelado", "à vista"
-    private String localidade; // Ex: "Supermercado X"
+    private String tipoDePagamento; // Ex: "fixo", "parcelado no cartao", "pix"
+    private String ondeGastou; // Ex: "RU", "Supermercado X", "Xerox"
 
-    public Gasto(double valor, String descricao, LocalDate data, String frequencia, String localidade) {
-        super(valor, descricao, data);
-        this.frequencia = frequencia;
-        this.localidade = localidade;
+    public Gasto(double valor, String desc, LocalDate data, String tipo, String onde) {
+        super(valor, desc, data);
+        this.tipoDePagamento = tipo;
+        this.ondeGastou = onde;
     }
 
     @Override
     public double executarTransacao() {
-        // Gasto subtrai do saldo total
-        return -getValor();
+        // Gasto tem que tirar do saldo, então o retorno é negativo
+        return -getValor(); 
     }
 
-    // Getters e Setters específicos
-    public String getFrequencia() { return frequencia; }
-    public void setFrequencia(String frequencia) { this.frequencia = frequencia; }
+    public String getTipoDePagamento() { 
+        return tipoDePagamento; 
+    }
+    
+    public void setTipoDePagamento(String tipo) { 
+        this.tipoDePagamento = tipo; 
+    }
 
-    public String getLocalidade() { return localidade; }
-    public void setLocalidade(String localidade) { this.localidade = localidade; }
+    public String getOndeGastou() { 
+        return ondeGastou; 
+    }
+    
+    public void setOndeGastou(String onde) { 
+        this.ondeGastou = onde; 
+    }
 }

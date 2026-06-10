@@ -1,26 +1,37 @@
 import java.time.LocalDate;
 
 public class AlertaVencimento extends Alerta implements Notificavel {
+    
     private LocalDate dataVencimento;
 
-    public AlertaVencimento(String mensagem, LocalDate dataVencimento) {
-        super(mensagem);
-        this.dataVencimento = dataVencimento;
+    public AlertaVencimento(String msg, LocalDate data) {
+        super(msg);
+        this.dataVencimento = data;
     }
 
     @Override
     public boolean verificarGatilho() {
-        // Dispara se a data de hoje for igual ou depois do vencimento e o alerta ainda estiver ativo
-        return isAtivo() && (LocalDate.now().isEqual(dataVencimento) || LocalDate.now().isAfter(dataVencimento));
+        if (isAtivo() == false) {
+            return false;
+        }
+
+        LocalDate hoje = LocalDate.now();
+        
+        // Verifica se a data de hj é igual ou já passou do vencimento
+        if (hoje.isEqual(dataVencimento) || hoje.isAfter(dataVencimento)) {
+            return true;
+        }
+        
+        return false;
     }
 
     @Override
-    public void enviarNotificacao(String mensagem) {
-        System.out.println("[ALERTA DE CONTA] " + mensagem);
+    public void enviarNotificacao(String msg) {
+        System.out.println("[ALERTA] " + msg);
     }
 
     @Override
     public void disparar() {
-        enviarNotificacao(getMensagem() + " -> Venceu em: " + dataVencimento);
+        enviarNotificacao(getMensagem() + " - Vence em: " + dataVencimento.toString());
     }
 }

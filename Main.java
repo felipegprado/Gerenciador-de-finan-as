@@ -1,41 +1,52 @@
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== Inicializando Carteira do Arthur ===\n");
+        System.out.println("=== Sistema de Gestão Financeira ===\n"); 
 
-        Carteira carteira = new Carteira("Finanças Pessoais");
+        Carteira minhaCarteira = new Carteira("Carteira Principal");
 
-        // 1. O usuário cria uma meta: Não gastar mais do que R$ 200,00 no total
-        AlertaOrcamento limiteGeral = new AlertaOrcamento("Alerta: Você passou do limite de gastos do mês!", 200.0);
-        carteira.adicionarAlerta(limiteGeral);
+        // --- 1. CONFIGURANDO OS ALERTAS ---
+        minhaCarteira.adicionarAlerta(new AlertaOrcamento("Atenção: Você passou do limite de gastos.", 200.0));
+        minhaCarteira.adicionarAlerta(new AlertaVencimento("Aviso: Há um boleto com vencimento para hoje.", LocalDate.now()));
 
-        // 2. O usuário cadastra um aviso de boleto para HOJE
-        AlertaVencimento internet = new AlertaVencimento("Boleto da Internet vencendo hoje!", LocalDate.now());
-        carteira.adicionarAlerta(internet);
-
-        // 3. Recebendo dinheiro (Saldo inicial)
-        System.out.println("-> Depositando saldo...");
-        Ganho mesada = new Ganho(500.00, "Mesada", LocalDate.now(), "Pais");
-        carteira.adicionarTransacao(mesada);
-
-        // 4. Primeiro gasto: R$ 50,00 (Abaixo do limite de 200, tudo certo)
-        System.out.println("-> Comprando peças na oficina (R$ 50,00)...");
-        Gasto pecaBaja = new Gasto(50.00, "Parafusos Prototipação", LocalDate.now(), "à vista", "Oficina");
-        carteira.adicionarTransacao(pecaBaja);
-
-        // 5. Segundo gasto: R$ 160,00 (Total acumulado: R$ 210,00. Vai estourar o limite!)
-        System.out.println("-> Comprando mercado (R$ 160,00)...");
-        Gasto mercado = new Gasto(160.00, "Compras do Mês", LocalDate.now(), "à vista", "Supermercado");
+        // --- 2. CRIANDO AS TRANSAÇÕES ---
+        System.out.println("-> Registrando receita inicial...");
+        Ganho salario = new Ganho(500.00, "Salário Mensal", LocalDate.now(), "Transferência Bancária");
         
-        // Ao rodar a linha abaixo, o alerta deve disparar sozinho no console!
-        carteira.adicionarTransacao(mercado);
+        System.out.println("-> Registrando despesa (Material de Escritório)...");
+        Gasto materialEscritorio = new Gasto(50.00, "Cadernos e Canetas", LocalDate.now(), "Pix", "Papelaria Central");
+        materialEscritorio.adicionarTag("escritorio");
+        materialEscritorio.adicionarTag("material");
 
-        // 6. Verificação de contas do dia
-        System.out.println("\n-> Rodando checagem de contas a pagar...");
-        carteira.verificarAlertasGerais();
+        System.out.println("-> Registrando despesa (Supermercado)...");
+        Gasto mercado = new Gasto(160.00, "Compras do Mês", LocalDate.now(), "Cartão de Crédito", "Supermercado Local");
+        mercado.adicionarTag("alimentacao");
+        mercado.adicionarTag("essencial");
 
-        // 7. Mostrando saldo final
-        System.out.printf("%nSaldo final na carteira: R$ %.2f%n", carteira.calcularSaldo());
+        // --- 3. ADICIONANDO NA CARTEIRA ---
+        minhaCarteira.adicionarTransacao(salario);
+        minhaCarteira.adicionarTransacao(materialEscritorio);
+        
+        // Ao adicionar o mercado, o limite de R$ 200,00 será ultrapassado (50 + 160 = 210)
+        // O alerta de orçamento será disparado automaticamente no console.
+        minhaCarteira.adicionarTransacao(mercado); 
+
+        // --- 4. CHECAGENS MANUAIS E RELATÓRIOS ---
+        System.out.println("\n-> Verificando alertas de vencimento pendentes...");
+        minhaCarteira.checarTodosAlertas(); 
+
+        System.out.println("\n-> Buscando transações com a tag 'escritorio'...");
+        List<Transacao> resultadoBusca = minhaCarteira.fazerBusca("escritorio");
+        for (Transacao t : resultadoBusca) {
+            System.out.println("   Registro encontrado: " + t.getDescricao() + " | Valor: R$ " + t.getValor());
+        }
+
+        System.out.printf("\nSaldo final da carteira: R$ %.2f\n", minhaCarteira.calcularSaldoFinal());
+
+        System.out.println("\n-> Exportando relatório de transações...");
+        // O arquivo será gerado no diretório raiz do projeto
+        minhaCarteira.exportarDados("extrato_financeiro.txt"); 
     }
 }

@@ -1,6 +1,6 @@
 import java.util.List;
 
 public interface Pesquisavel {
-    // Retorna uma lista de transações que batem com o termo pesquisado (na descrição ou tags)
-    List<Transacao> fazerBusca(String termo);
+    // Procura nas despesas uma palavra chave (tipo "Baja" ou "Mercado")
+    List<Transacao> fazerBusca(String palavraChave);
 }

@@ -1,20 +1,24 @@
 import java.time.LocalDate;
 
 public class Ganho extends Transacao {
-    private String fonte; // Ex: "Salário Estágio", "Bolsa Baja"
+    private String origemDaGrana; // Ex: "Salário Estágio", "Bolsa Baja", "Pix do Pai"
 
-    public Ganho(double valor, String descricao, LocalDate data, String fonte) {
-        super(valor, descricao, data);
-        this.fonte = fonte;
+    public Ganho(double valor, String desc, LocalDate data, String origem) {
+        super(valor, desc, data);
+        this.origemDaGrana = origem;
     }
 
     @Override
     public double executarTransacao() {
-        // Ganho soma ao saldo total
+        // Se é ganho, o valor entra positivo
         return getValor();
     }
 
-    // Getter e Setter específico
-    public String getFonte() { return fonte; }
-    public void setFonte(String fonte) { this.fonte = fonte; }
+    public String getOrigemDaGrana() { 
+        return origemDaGrana; 
+    }
+    
+    public void setOrigemDaGrana(String origem) { 
+        this.origemDaGrana = origem; 
+    }
 }

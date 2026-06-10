@@ -1,67 +1,131 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Carteira {
-    private String nome;
-    private List<Transacao> transacoes;
-    private List<Alerta> alertas; // A carteira agora guarda os alertas do usuário
+public class Carteira implements Pesquisavel, Exportavel {
+    private String nomeCarteira;
+    private List<Transacao> minhasTransacoes;
+    private List<Alerta> meusAlertas; 
 
     public Carteira(String nome) {
-        this.nome = nome;
-        this.transacoes = new ArrayList<>();
-        this.alertas = new ArrayList<>();
+        this.nomeCarteira = nome;
+        this.minhasTransacoes = new ArrayList<>();
+        this.meusAlertas = new ArrayList<>();
     }
 
-    public void adicionarAlerta(Alerta alerta) {
-        this.alertas.add(alerta);
+    public void adicionarAlerta(Alerta novoAlerta) {
+        this.meusAlertas.add(novoAlerta);
     }
 
-    public void adicionarTransacao(Transacao transacao) {
-        this.transacoes.add(transacao);
+    public void adicionarTransacao(Transacao t) {
+        this.minhasTransacoes.add(t);
         
-        // Toda vez que entra um gasto, a carteira checa os alertas de orçamento
-        if (transacao instanceof Gasto) {
-            checarAlertasDeOrcamento();
+        // Verifica se a transação é um gasto. Se for, já checa o orçamento
+        if (t instanceof Gasto) {
+            checarOrcamento();
         }
     }
 
-    private void checarAlertasDeOrcamento() {
-        double totalGasto = 0;
+    private void checarOrcamento() {
+        double totalJaGasto = 0.0;
         
-        // 1. Calcula o total de gastos atuais na carteira
-        for (Transacao t : transacoes) {
-            if (t instanceof Gasto) {
-                totalGasto += t.getValor();
+        // 1. Fazendo o for na mão pra somar tudo que já gastou até agora
+        for (int i = 0; i < minhasTransacoes.size(); i++) {
+            Transacao transacao = minhasTransacoes.get(i);
+            if (transacao instanceof Gasto) {
+                totalJaGasto = totalJaGasto + transacao.getValor();
             }
         }
 
-        // 2. Atualiza e testa cada alerta de orçamento
-        for (Alerta a : alertas) {
-            if (a instanceof AlertaOrcamento) {
-                ((AlertaOrcamento) a).atualizarValorAtual(totalGasto);
+        // 2. Avisa os alertas de orçamento como tá a situação
+        for (int i = 0; i < meusAlertas.size(); i++) {
+            Alerta alerta = meusAlertas.get(i);
+            
+            if (alerta instanceof AlertaOrcamento) {
+                // Tem que fazer o cast pra poder chamar o método que não tá na classe mãe
+                AlertaOrcamento alertaGasto = (AlertaOrcamento) alerta;
+                alertaGasto.atualizarValorAtual(totalJaGasto);
             }
         }
     }
 
-    // Método para rodar uma verificação manual (ex: checar boletos vencendo)
-    public void verificarAlertasGerais() {
-        for (Alerta a : alertas) {
-            if (a instanceof AlertaVencimento) {
-                AlertaVencimento av = (AlertaVencimento) a;
-                if (av.verificarGatilho()) {
-                    av.disparar();
+    public void checarTodosAlertas() {
+        for (Alerta alerta : meusAlertas) {
+            // Como todo alerta agora implementa Notificavel, podemos chamar direto
+            if (alerta.verificarGatilho() == true) {
+                alerta.disparar();
+            }
+        }
+    }
+
+    @Override
+    public List<Transacao> fazerBusca(String palavraChave) {
+        List<Transacao> resultados = new ArrayList<>();
+        palavraChave = palavraChave.toLowerCase(); // pra ignorar maiusculas e minusculas
+
+        for (Transacao t : minhasTransacoes) {
+            // 1. Procura na descricao
+            if (t.getDescricao().toLowerCase().contains(palavraChave)) {
+                resultados.add(t);
+            } else {
+                // 2. Se não achou na descricao, procura nas Tags
+                for (String tag : t.getTags()) {
+                    if (tag.toLowerCase().contains(palavraChave)) {
+                        resultados.add(t);
+                        break; // Já achou essa transacao, sai do loop interno das tags
+                    }
                 }
             }
         }
+        return resultados;
     }
 
-    public double calcularSaldo() {
-        double saldoTotal = 0;
-        for (Transacao t : transacoes) {
-            saldoTotal += t.executarTransacao();
+    @Override
+    public void exportarDados(String caminhoDoArquivo) {
+        try {
+            FileWriter escritor = new FileWriter(caminhoDoArquivo);
+            escritor.write("=== Extrato da Carteira: " + this.nomeCarteira + " ===\n");
+            
+            for (Transacao t : minhasTransacoes) {
+                escritor.write(t.getData() + " | " + t.getDescricao() + " | R$ " + t.getValor() + "\n");
+            }
+            
+            escritor.write("\nSaldo Final: R$ " + calcularSaldoFinal() + "\n");
+            escritor.close();
+            
+            System.out.println("-> [SUCESSO] Arquivo salvo lá em: " + caminhoDoArquivo);
+            
+        } catch (IOException erro) {
+            System.out.println("-> [DEU RUIM] Erro ao salvar arquivo: " + erro.getMessage());
         }
-        return saldoTotal;
     }
 
-    public List<Transacao> getTransacoes() { return transacoes; }
+    public double calcularSaldoFinal() {
+        double saldo = 0.0;
+        for (Transacao t : minhasTransacoes) {
+            // O metodo executarTransacao() já sabe se tem que somar (ganho) ou subtrair (gasto)
+            saldo = saldo + t.executarTransacao();
+        }
+        return saldo;
+    }
+
+    public List<Transacao> getTransacoes() { 
+        return minhasTransacoes; 
+    }
+
+
+
+
+    // Método para remover uma transação específica
+    public boolean removerTransacao(Transacao transacao) {
+        // O método .remove() da lista busca o objeto e o remove. 
+        // Retorna true se encontrou e removeu, e false se não encontrou.
+        return this.minhasTransacoes.remove(transacao);
+    }
+
+    // Método para remover um alerta específico
+    public boolean removerAlerta(Alerta alerta) {
+        return this.meusAlertas.remove(alerta);
+    }
 }

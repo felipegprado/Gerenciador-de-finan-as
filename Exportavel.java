@@ -1,6 +1,6 @@
 import java.io.IOException;
 
 public interface Exportavel {
-    // Exige a lógica para escrever os dados internamente em um arquivo local
-    void exportarDados(String caminhoArquivo) throws IOException;
+    // Método pra salvar os dados num .txt ou .csv quando for exportar relatorio
+    void exportarDados(String caminhoDoArquivo) throws IOException;
 }
