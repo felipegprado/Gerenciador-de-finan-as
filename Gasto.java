@@ -12,8 +12,8 @@ public class Gasto extends Transacao {
     }
 
     @Override
-    public void executarTransacao() {
-        // Implementação do método abstrato da classe Mãe
+    public double executarTransacao() {
+        return -getValor(); // Retorna negativo
     }
 
     @Override

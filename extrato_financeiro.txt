@@ -1,0 +1,6 @@
+=== Extrato da Carteira: Carteira Principal ===
+2026-06-13 | Salário Mensal | R$ 500.0
+2026-06-13 | Cadernos e Canetas | R$ -50.0
+2026-06-13 | Compras do Mês | R$ -160.0
+
+Saldo Final: R$ 710.0

@@ -10,9 +10,8 @@ public class Ganho extends Transacao {
     }
 
     @Override
-    public void executarTransacao() {
-        // Implementação do método abstrato da classe Mãe
-        // O saldo final utiliza o getValor() de forma positiva no polimorfismo
+    public double executarTransacao() {
+        return getValor(); // Retorna positivo
     }
 
     @Override

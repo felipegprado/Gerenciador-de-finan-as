@@ -17,7 +17,7 @@ public abstract class Transacao {
     }
 
     // Método Abstrato que define o comportamento polimórfico
-    public abstract void executarTransacao();
+   public abstract double executarTransacao();
 
     // Métodos de acesso (Getters e Setters) idênticos ao UML
     public double getValor() { 
