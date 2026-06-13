@@ -1,44 +1,54 @@
-public class AlertaOrcamento extends Alerta implements Notificavel {
+public class AlertaOrcamento extends Alerta {
     private double valorLimite;
     private double valorAtual;
 
-    public AlertaOrcamento(String msg, double limite) {
-        super(msg);
-        this.valorLimite = limite;
+    public AlertaOrcamento(String mensagem, double valorLimite) {
+        super(mensagem);
+        this.valorLimite = valorLimite;
         this.valorAtual = 0.0;
     }
 
     public void atualizarValorAtual(double novoValor) {
-        // Vai somando os gastos novos no valor atual
-        this.valorAtual = this.valorAtual + novoValor;
+        this.valorAtual += novoValor;
         
-        if (verificarGatilho() == true) {
+        if (verificarGatilho()) {
             disparar();
         }
     }
 
     @Override
     public boolean verificarGatilho() {
-        // Mais legível separar as checagens
-        if (isAtivo() == false) {
+        if (!isAtivo()) {
             return false;
         }
-        
-        if (this.valorAtual >= this.valorLimite) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.valorAtual >= this.valorLimite;
     }
 
     @Override
     public void enviarNotificacao(String msg) {
-        // TODO: mudar pro JavaFX quando a interface estiver pronta
+        // TODO: Mudar para o JavaFX quando a view estiver pronta
         System.out.println("Notificacao: " + msg);
     }
 
     @Override
     public void disparar() {
         enviarNotificacao(getMensagem() + " | Limite: " + valorLimite + " | Total gasto: " + valorAtual);
+    }
+
+    // Métodos de acesso exigidos no UML
+    public double getValorLimite() {
+        return valorLimite;
+    }
+
+    public void setValorLimite(double valorLimite) {
+        this.valorLimite = valorLimite;
+    }
+
+    public double getValorAtual() {
+        return valorAtual;
+    }
+
+    public void setValorAtual(double valorAtual) {
+        this.valorAtual = valorAtual;
     }
 }

@@ -1,34 +1,41 @@
 import java.time.LocalDate;
+import java.util.List;
 
 public class Gasto extends Transacao {
-    private String tipoDePagamento; // Ex: "fixo", "parcelado no cartao", "pix"
-    private String ondeGastou; // Ex: "RU", "Supermercado X", "Xerox"
+    private String frequencia; 
+    private String localidade; 
 
-    public Gasto(double valor, String desc, LocalDate data, String tipo, String onde) {
-        super(valor, desc, data);
-        this.tipoDePagamento = tipo;
-        this.ondeGastou = onde;
+    public Gasto(double valor, String descricao, LocalDate data, List<String> tags, String frequencia, String localidade) {
+        super(valor, descricao, data, tags);
+        this.frequencia = frequencia;
+        this.localidade = localidade;
     }
 
     @Override
-    public double executarTransacao() {
-        // Gasto tem que tirar do saldo, então o retorno é negativo
-        return -getValor(); 
+    public void executarTransacao() {
+        // Implementação do método abstrato da classe Mãe
     }
 
-    public String getTipoDePagamento() { 
-        return tipoDePagamento; 
-    }
-    
-    public void setTipoDePagamento(String tipo) { 
-        this.tipoDePagamento = tipo; 
+    @Override
+    public double getValor() {
+        // Garante o retorno negativo automático para dedução do saldo
+        return -super.getValor();
     }
 
-    public String getOndeGastou() { 
-        return ondeGastou; 
+    // Métodos de acesso exigidos no UML
+    public String getFrequencia() { 
+        return frequencia; 
     }
     
-    public void setOndeGastou(String onde) { 
-        this.ondeGastou = onde; 
+    public void setFrequencia(String frequencia) { 
+        this.frequencia = frequencia; 
+    }
+
+    public String getLocalidade() { 
+        return localidade; 
+    }
+    
+    public void setLocalidade(String localidade) { 
+        this.localidade = localidade; 
     }
 }

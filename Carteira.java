@@ -1,27 +1,28 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Carteira implements Pesquisavel, Exportavel {
-    private String nomeCarteira;
-    private List<Transacao> minhasTransacoes;
-    private List<Alerta> meusAlertas; 
+    private String nome;
+    private List<Transacao> transacoes;
+    private List<Alerta> alertas; 
 
     public Carteira(String nome) {
-        this.nomeCarteira = nome;
-        this.minhasTransacoes = new ArrayList<>();
-        this.meusAlertas = new ArrayList<>();
+        this.nome = nome;
+        this.transacoes = new ArrayList<>();
+        this.alertas = new ArrayList<>();
     }
 
     public void adicionarAlerta(Alerta novoAlerta) {
-        this.meusAlertas.add(novoAlerta);
+        this.alertas.add(novoAlerta);
     }
 
     public void adicionarTransacao(Transacao t) {
-        this.minhasTransacoes.add(t);
+        this.transacoes.add(t);
         
-        // Verifica se a transação é um gasto. Se for, já checa o orçamento
         if (t instanceof Gasto) {
             checarOrcamento();
         }
@@ -30,50 +31,46 @@ public class Carteira implements Pesquisavel, Exportavel {
     private void checarOrcamento() {
         double totalJaGasto = 0.0;
         
-        // 1. Fazendo o for na mão pra somar tudo que já gastou até agora
-        for (int i = 0; i < minhasTransacoes.size(); i++) {
-            Transacao transacao = minhasTransacoes.get(i);
+        for (Transacao transacao : transacoes) {
             if (transacao instanceof Gasto) {
-                totalJaGasto = totalJaGasto + transacao.getValor();
+                totalJaGasto += transacao.getValor();
             }
         }
 
-        // 2. Avisa os alertas de orçamento como tá a situação
-        for (int i = 0; i < meusAlertas.size(); i++) {
-            Alerta alerta = meusAlertas.get(i);
-            
+        for (Alerta alerta : alertas) {
             if (alerta instanceof AlertaOrcamento) {
-                // Tem que fazer o cast pra poder chamar o método que não tá na classe mãe
                 AlertaOrcamento alertaGasto = (AlertaOrcamento) alerta;
-                alertaGasto.atualizarValorAtual(totalJaGasto);
+                // Ajustado para setar o valor absoluto e evitar duplicações no +=
+                alertaGasto.setValorAtual(totalJaGasto);
+                
+                if (alertaGasto.verificarGatilho()) {
+                    alertaGasto.disparar();
+                }
             }
         }
     }
 
     public void checarTodosAlertas() {
-        for (Alerta alerta : meusAlertas) {
-            // Como todo alerta agora implementa Notificavel, podemos chamar direto
-            if (alerta.verificarGatilho() == true) {
+        for (Alerta alerta : alertas) {
+            if (alerta.verificarGatilho()) {
                 alerta.disparar();
             }
         }
     }
 
     @Override
-    public List<Transacao> fazerBusca(String palavraChave) {
+    public List<Transacao> fazerBusca(String termo) {
         List<Transacao> resultados = new ArrayList<>();
-        palavraChave = palavraChave.toLowerCase(); // pra ignorar maiusculas e minusculas
+        String palavraChave = termo.toLowerCase();
 
-        for (Transacao t : minhasTransacoes) {
-            // 1. Procura na descricao
+        for (Transacao t : transacoes) {
             if (t.getDescricao().toLowerCase().contains(palavraChave)) {
                 resultados.add(t);
             } else {
-                // 2. Se não achou na descricao, procura nas Tags
                 for (String tag : t.getTags()) {
                     if (tag.toLowerCase().contains(palavraChave)) {
                         resultados.add(t);
-                        break; // Já achou essa transacao, sai do loop interno das tags
+                        break; 
                     }
                 }
             }
@@ -82,50 +79,61 @@ public class Carteira implements Pesquisavel, Exportavel {
     }
 
     @Override
-    public void exportarDados(String caminhoDoArquivo) {
-        try {
-            FileWriter escritor = new FileWriter(caminhoDoArquivo);
-            escritor.write("=== Extrato da Carteira: " + this.nomeCarteira + " ===\n");
+    public void exportarDados(String caminho) {
+        try (FileWriter escritor = new FileWriter(caminho)) {
+            escritor.write("=== Extrato da Carteira: " + this.nome + " ===\n");
             
-            for (Transacao t : minhasTransacoes) {
+            for (Transacao t : transacoes) {
                 escritor.write(t.getData() + " | " + t.getDescricao() + " | R$ " + t.getValor() + "\n");
             }
             
-            escritor.write("\nSaldo Final: R$ " + calcularSaldoFinal() + "\n");
-            escritor.close();
-            
-            System.out.println("-> [SUCESSO] Arquivo salvo lá em: " + caminhoDoArquivo);
+            escritor.write("\nSaldo Final: R$ " + calcularSaldo() + "\n");
+            System.out.println("-> [SUCESSO] Arquivo salvo em: " + caminho);
             
         } catch (IOException erro) {
-            System.out.println("-> [DEU RUIM] Erro ao salvar arquivo: " + erro.getMessage());
+            System.out.println("-> [ERRO] Falha ao salvar arquivo: " + erro.getMessage());
         }
     }
 
-    public double calcularSaldoFinal() {
+    public double calcularSaldo() {
         double saldo = 0.0;
-        for (Transacao t : minhasTransacoes) {
-            // O metodo executarTransacao() já sabe se tem que somar (ganho) ou subtrair (gasto)
-            saldo = saldo + t.executarTransacao();
+        for (Transacao t : transacoes) {
+            saldo += t.executarTransacao();
         }
         return saldo;
     }
 
+    // Métodos de acesso exigidos pelo UML
+    public String getNome() { 
+        return nome; 
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public List<Transacao> getTransacoes() { 
-        return minhasTransacoes; 
+        return transacoes; 
     }
 
-
-
-
-    // Método para remover uma transação específica
-    public boolean removerTransacao(Transacao transacao) {
-        // O método .remove() da lista busca o objeto e o remove. 
-        // Retorna true se encontrou e removeu, e false se não encontrou.
-        return this.minhasTransacoes.remove(transacao);
+    public List<Alerta> getAlertas() {
+        return alertas;
     }
 
-    // Método para remover um alerta específico
-    public boolean removerAlerta(Alerta alerta) {
-        return this.meusAlertas.remove(alerta);
+    public boolean removerTransacao(Transacao t) {
+        return this.transacoes.remove(t);
+    }
+
+    public boolean removerAlerta(Alerta a) {
+        return this.alertas.remove(a);
+    }
+
+    // Métodos stubs para os mapas do UML (serão implementados conforme regras de negócio posteriores)
+    public Map<String, Double> getDadosPorTag() {
+        return new HashMap<>();
+    }
+
+    public Map<String, Double> getDadosPorMes() {
+        return new HashMap<>();
     }
 }

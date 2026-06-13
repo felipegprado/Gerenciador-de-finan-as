@@ -1,28 +1,21 @@
 import java.time.LocalDate;
 
-public class AlertaVencimento extends Alerta implements Notificavel {
-    
+public class AlertaVencimento extends Alerta {
     private LocalDate dataVencimento;
 
-    public AlertaVencimento(String msg, LocalDate data) {
-        super(msg);
-        this.dataVencimento = data;
+    public AlertaVencimento(String mensagem, LocalDate dataVencimento) {
+        super(mensagem);
+        this.dataVencimento = dataVencimento;
     }
 
     @Override
     public boolean verificarGatilho() {
-        if (isAtivo() == false) {
+        if (!isAtivo()) {
             return false;
         }
 
         LocalDate hoje = LocalDate.now();
-        
-        // Verifica se a data de hj é igual ou já passou do vencimento
-        if (hoje.isEqual(dataVencimento) || hoje.isAfter(dataVencimento)) {
-            return true;
-        }
-        
-        return false;
+        return hoje.isEqual(dataVencimento) || hoje.isAfter(dataVencimento);
     }
 
     @Override
@@ -33,5 +26,14 @@ public class AlertaVencimento extends Alerta implements Notificavel {
     @Override
     public void disparar() {
         enviarNotificacao(getMensagem() + " - Vence em: " + dataVencimento.toString());
+    }
+
+    // Métodos de acesso exigidos no UML
+    public LocalDate getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
     }
 }
