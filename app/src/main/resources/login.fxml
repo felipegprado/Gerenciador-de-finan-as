@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Painel principal (AnchorPane) com a definição do tamanho e o vínculo à classe Controller -->
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" 
+            minHeight="-Infinity" minWidth="-Infinity" 
+            prefHeight="300.0" prefWidth="400.0" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="projetofinal.LoginController">
+   <children>
+      
+      <!-- Rótulo e Campo de Texto para o Login -->
+      <Label layoutX="100.0" layoutY="50.0" text="Login:" />
+      <TextField fx:id="txLogin" layoutX="100.0" layoutY="70.0" 
+                 prefWidth="200.0" promptText="Digite seu login..." />
+      
+      <!-- Rótulo e Campo Oculto para a Senha -->
+      <Label layoutX="100.0" layoutY="120.0" text="Senha:" />
+      <PasswordField fx:id="txSenha" layoutX="100.0" layoutY="140.0" 
+                     prefWidth="200.0" promptText="Digite sua senha..." />
+      
+      <!-- Botões de Ação com os seus respectivos fx:id e links de eventos onAction -->
+      <Button fx:id="btEntrar" layoutX="120.0" layoutY="200.0" 
+              mnemonicParsing="false" onAction="#entrar" text="Entrar" />
+              
+      <Button fx:id="btSair" layoutX="220.0" layoutY="200.0" 
+              mnemonicParsing="false" onAction="#sair" prefWidth="52.0" text="Sair" />
+              
+   </children>
+</AnchorPane>
