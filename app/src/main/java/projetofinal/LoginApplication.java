@@ -10,11 +10,11 @@ public class LoginApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("/login.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("/projetofinal/login.fxml"));
         
         Scene scene = new Scene(parent);
         stage.setScene(scene);
-        stage.setTitle("Tela de Login - GolFX");
+        stage.setTitle("Meu gerenciador de finanças");
         stage.show();
     }
 

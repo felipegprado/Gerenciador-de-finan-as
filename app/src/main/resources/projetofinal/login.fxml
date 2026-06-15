@@ -10,7 +10,7 @@
             minHeight="-Infinity" minWidth="-Infinity" 
             prefHeight="300.0" prefWidth="400.0" 
             xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="projetofinal.LoginController">
+            fx:controller="projetofinal.controller.LoginController"> <!-- sempre que eu mudar o controller tenho que mudar aqui também-->
    <children>
       
       <!-- Rótulo e Campo de Texto para o Login -->

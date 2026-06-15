@@ -1,4 +1,4 @@
-package projetofinal;
+package projetofinal.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController implements Initializable {
+public class LoginController implements Initializable {\
 
     // Liga o campo de texto do FXML a esta variável Java
     @FXML
