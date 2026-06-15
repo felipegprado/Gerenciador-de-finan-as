@@ -1,0 +1,11 @@
+# ignora extensões .class
+*.class
+
+# ignora aruivos de compilação .jar (inclusive .class denrtro dessa pasta)
+build/
+.gradle/
+.vscode/
+
+#ignora arquivos de compilação a menos do gradlew
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
