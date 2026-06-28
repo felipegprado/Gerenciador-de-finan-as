@@ -1,3 +1,5 @@
+package projetofinal.model;
+
 public abstract class Alerta implements Notificavel {
     private String mensagem;
     private boolean ativo; 

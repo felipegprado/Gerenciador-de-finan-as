@@ -1,3 +1,5 @@
+package projetofinal.model;
+
 public class AlertaOrcamento extends Alerta {
     private double valorLimite;
     private double valorAtual;

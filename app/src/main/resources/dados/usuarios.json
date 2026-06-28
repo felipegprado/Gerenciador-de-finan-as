@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "PQD",
+    "email": "pqd",
+    "senha": "123",
+    "carteiras": [
+      {
+        "nome": "Carteira 1",
+        "transacoes": [],
+        "alertas": []
+      }
+    ]
+  }
+]

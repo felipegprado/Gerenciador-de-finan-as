@@ -1,3 +1,5 @@
+package projetofinal.model;
+
 // FormatoArquivoInvalidoException.java
 public class FormatoArquivoInvalidoException extends Exception {
     public FormatoArquivoInvalidoException(String msg) {

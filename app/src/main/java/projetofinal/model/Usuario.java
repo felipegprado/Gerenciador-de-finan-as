@@ -1,4 +1,5 @@
-// Usuario.java
+package projetofinal.model;
+
 import java.util.ArrayList;
 import java.util.List;
 
