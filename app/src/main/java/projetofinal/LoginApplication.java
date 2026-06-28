@@ -13,6 +13,7 @@ public class LoginApplication extends Application {
         Parent parent = FXMLLoader.load(getClass().getResource("/projetofinal/login.fxml"));
         
         Scene scene = new Scene(parent);
+        stage.setResizable(true);
         stage.setScene(scene);
         stage.setTitle("Meu gerenciador de finanças");
         stage.show();

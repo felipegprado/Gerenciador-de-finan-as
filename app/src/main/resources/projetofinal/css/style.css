@@ -1,0 +1,76 @@
+.meu-botao {
+    -fx-background-color: #4a4242;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+
+.bg_color{
+    /*-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #023E7D, #001233 )*/
+    -fx-background-color: #001233
+}
+
+.bg_menu_app_bar {
+    -fx-background-color: transparent;
+}
+
+.titulo_destaque {
+    -fx-font-family: "Inter";
+    -fx-font-weight: 900;
+    -fx-font-size: 25px;
+    -fx-text-fill: #0466c8; 
+    -fx-stroke: #0466c8;
+    -fx-stroke-width: 1px; 
+    -fx-font-style: italic;   
+    
+}
+
+.bg_menu_icones {
+    -fx-background-color: #002855;
+
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    
+    /* Espessura da linha */
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    
+}
+
+.menu-item {
+    -fx-background-color: transparent; /* Remove o fundo cinza padrão */
+    -fx-text-fill: #b3cde0;           /* Cor do texto */
+    -fx-font-family: "Inter";
+    -fx-font-weight: bold;
+    -fx-cursor: hand;                /* Muda o cursor para "mãozinha" */
+    -fx-padding: 10 0 10 20;         /* Espaçamento interno */
+    -fx-alignment: CENTER_LEFT;      /* Alinha ícone e texto à esquerda */
+}
+
+
+.menu-item:hover {
+    -fx-background-color: rgba(4, 102, 200, 0.4); /* Azul com transparência */
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+}
+
+/* Estilo específico para o texto dentro do botão */
+.menu-item .label {
+    -fx-text-fill: inherit; /* Herda a cor do botão */
+    -fx-font-size: 16px;
+    -fx-font-family: "Inter";
+}
+
+.bg_botao_central {
+    -fx-background-color: #002855;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-cursor: hand; 
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+}
+
+.bg_botao_central:hover {
+    -fx-background-color: rgba(4, 102, 200, 0.4); /* Azul com transparência */
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+}
