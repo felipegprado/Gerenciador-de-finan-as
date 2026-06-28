@@ -1,13 +1,12 @@
 package projetofinal.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class Gasto extends Transacao {
     private String frequencia; 
     private String localidade; 
 
-    public Gasto(double valor, String descricao, LocalDate data, List<String> tags, String frequencia, String localidade) {
+    public Gasto(double valor, String descricao, String data, List<String> tags, String frequencia, String localidade) {
         super(valor, descricao, data, tags);
         this.frequencia = frequencia;
         this.localidade = localidade;

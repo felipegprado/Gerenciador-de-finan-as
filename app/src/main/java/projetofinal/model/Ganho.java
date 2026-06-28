@@ -1,12 +1,11 @@
 package projetofinal.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class Ganho extends Transacao {
     private String fonte; 
 
-    public Ganho(double valor, String descricao, LocalDate data, List<String> tags, String fonte) {
+    public Ganho(double valor, String descricao, String data, List<String> tags, String fonte) {
         super(valor, descricao, data, tags);
         this.fonte = fonte;
     }

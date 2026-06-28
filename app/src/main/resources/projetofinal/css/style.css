@@ -74,3 +74,8 @@
     -fx-text-fill: white;
     -fx-background-radius: 10;
 }
+
+.estilo_cadastro {
+    /* De cima (transparente) para baixo (azul escuro) */
+    -fx-background-color: linear-gradient(to bottom, #979DAC, #5C677D);
+}

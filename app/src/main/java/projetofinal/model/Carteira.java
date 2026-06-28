@@ -10,7 +10,7 @@ import java.util.Map;
 public class Carteira implements Pesquisavel, Exportavel {
     private String nome;
     private List<Transacao> transacoes;
-    private List<Alerta> alertas; 
+    private List<Alerta> alertas;
 
     public Carteira(String nome) {
         this.nome = nome;
@@ -24,7 +24,7 @@ public class Carteira implements Pesquisavel, Exportavel {
 
     public void adicionarTransacao(Transacao t) {
         this.transacoes.add(t);
-        
+
         if (t instanceof Gasto) {
             checarOrcamento();
         }
@@ -32,7 +32,7 @@ public class Carteira implements Pesquisavel, Exportavel {
 
     private void checarOrcamento() {
         double totalJaGasto = 0.0;
-        
+
         for (Transacao transacao : transacoes) {
             if (transacao instanceof Gasto) {
                 totalJaGasto += transacao.getValor();
@@ -44,7 +44,7 @@ public class Carteira implements Pesquisavel, Exportavel {
                 AlertaOrcamento alertaGasto = (AlertaOrcamento) alerta;
                 // Ajustado para setar o valor absoluto e evitar duplicações no +=
                 alertaGasto.setValorAtual(totalJaGasto);
-                
+
                 if (alertaGasto.verificarGatilho()) {
                     alertaGasto.disparar();
                 }
@@ -72,7 +72,7 @@ public class Carteira implements Pesquisavel, Exportavel {
                 for (String tag : t.getTags()) {
                     if (tag.toLowerCase().contains(palavraChave)) {
                         resultados.add(t);
-                        break; 
+                        break;
                     }
                 }
             }
@@ -84,14 +84,14 @@ public class Carteira implements Pesquisavel, Exportavel {
     public void exportarDados(String caminho) {
         try (FileWriter escritor = new FileWriter(caminho)) {
             escritor.write("=== Extrato da Carteira: " + this.nome + " ===\n");
-            
+
             for (Transacao t : transacoes) {
                 escritor.write(t.getData() + " | " + t.getDescricao() + " | R$ " + t.getValor() + "\n");
             }
-            
+
             escritor.write("\nSaldo Final: R$ " + calcularSaldo() + "\n");
             System.out.println("-> [SUCESSO] Arquivo salvo em: " + caminho);
-            
+
         } catch (IOException erro) {
             System.out.println("-> [ERRO] Falha ao salvar arquivo: " + erro.getMessage());
         }
@@ -106,16 +106,16 @@ public class Carteira implements Pesquisavel, Exportavel {
     }
 
     // Métodos de acesso exigidos pelo UML
-    public String getNome() { 
-        return nome; 
+    public String getNome() {
+        return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public List<Transacao> getTransacoes() { 
-        return transacoes; 
+    public List<Transacao> getTransacoes() {
+        return transacoes;
     }
 
     public List<Alerta> getAlertas() {
@@ -130,7 +130,8 @@ public class Carteira implements Pesquisavel, Exportavel {
         return this.alertas.remove(a);
     }
 
-    // Métodos stubs para os mapas do UML (serão implementados conforme regras de negócio posteriores)
+    // Métodos stubs para os mapas do UML (serão implementados conforme regras de
+    // negócio posteriores)
     public Map<String, Double> getDadosPorTag() {
         return new HashMap<>();
     }

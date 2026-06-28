@@ -41,20 +41,22 @@ public class GerenciadorArquivos {
                 if (partes.length >= 3) {
                     LocalDate data = LocalDate.parse(partes[0].trim());
                     String descricao = partes[1].trim();
-                    
+
                     // Limpa o R$ e converte para número
                     String textoValor = partes[2].replace("R$", "").trim();
                     double valor = Double.parseDouble(textoValor);
 
                     // Adiciona como Ganho ou Gasto
                     if (valor >= 0) {
-                        carteiraRecuperada.adicionarTransacao(new Ganho(valor, descricao, data, new ArrayList<>(), "Recuperado"));
+                        carteiraRecuperada
+                                .adicionarTransacao(new Ganho(valor, descricao, data.toString(), new ArrayList<>(), "Recuperado"));
                     } else {
-                        carteiraRecuperada.adicionarTransacao(new Gasto(Math.abs(valor), descricao, data, new ArrayList<>(), "Fixo", "Desconhecido"));
+                        carteiraRecuperada.adicionarTransacao(
+                                new Gasto(Math.abs(valor), descricao, data.toString(), new ArrayList<>(), "Fixo", "Desconhecido"));
                     }
                 }
             }
-            
+
             leitor.close(); // Sempre bom fechar o scanner no fim
 
         } catch (Exception e) {
