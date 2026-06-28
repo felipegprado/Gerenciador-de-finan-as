@@ -1,4 +1,4 @@
-package projetofinal.model; 
+package projetofinal; 
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

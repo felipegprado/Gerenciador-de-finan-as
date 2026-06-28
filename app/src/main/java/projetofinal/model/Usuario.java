@@ -14,6 +14,11 @@ public class Usuario {
         this.carteiras = new ArrayList<>();
     }
 
+    /*criei esse construtor para conseuir usar o Gson */
+    public Usuario() {
+        super();
+    }
+
     public void adicionarCarteira(Carteira c) {
         this.carteiras.add(c);
     }
