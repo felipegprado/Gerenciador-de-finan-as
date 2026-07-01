@@ -19,9 +19,9 @@ public class UsuarioRepository {
 
     public List<Usuario> lerDoJson() {
         try {
-            // Se o arquivo não existir na raiz, retorna lista vazia
+            /*caso não exista o arquivo */
             if (!Files.exists(caminhoDoArquivo)) {
-                System.out.println("Arquivo JSON não encontrado na raiz. Retornando vazio.");
+                System.out.println("Não encontramos o arquivo json.");
                 return new ArrayList<>();
             }
 
