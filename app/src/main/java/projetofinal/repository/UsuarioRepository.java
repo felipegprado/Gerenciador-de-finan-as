@@ -3,7 +3,6 @@ package projetofinal.repository;
 import com.google.gson.Gson;
 import projetofinal.model.Usuario;
 
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path; // coloca o nosso classpath
