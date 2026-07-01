@@ -1,0 +1,32 @@
+[
+    {
+        "nome": "PQD",
+        "email": "pqd",
+        "senha": "123",
+        "carteiras": [
+            {
+                "nome": "Carteira 1",
+                "transacoes": [],
+                "alertas": []
+            }
+        ]
+    },
+    {
+        "nome": "felipe",
+        "email": "felipe",
+        "senha": "felipe",
+        "carteiras": []
+    },
+    {
+        "nome": "lucas",
+        "email": "lucas",
+        "senha": "lalalalala",
+        "carteiras": []
+    },
+    {
+        "nome": "zeze",
+        "email": "zezeDiCamargo",
+        "senha": "eluciano",
+        "carteiras": []
+    }
+]

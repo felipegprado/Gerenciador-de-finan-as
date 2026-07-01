@@ -1,45 +1,47 @@
 package projetofinal.repository;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import projetofinal.model.Usuario;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Type;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path; // coloca o nosso classpath
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UsuarioRepository {
 
     private Gson gson = new Gson();
+    private Path caminhoDoArquivo = Paths.get("usuarios.json");
 
     public List<Usuario> lerDoJson() {
-            /*InputStream pega o arquivo em bytes */
-        try (InputStream arq = getClass().getResourceAsStream("/dados/usuarios.json")) {
-            if (arq == null) {
-                System.out.println("Arquivo não encontrado!");
+        try {
+            // Se o arquivo não existir na raiz, retorna lista vazia
+            if (!Files.exists(caminhoDoArquivo)) {
+                System.out.println("Arquivo JSON não encontrado na raiz. Retornando vazio.");
                 return new ArrayList<>();
             }
-            
-            Reader reader = new InputStreamReader(arq); //para transformar em texto os bytes
-            // Definimos o tipo como uma lista de usuários
-            Type listType = new TypeToken<ArrayList<Usuario>>(){}.getType();
-            return gson.fromJson(reader, listType);
-            
+
+            /* transformei o meu arquivo em uma String para o Gson manipular */
+            String meuJson = Files.readString(caminhoDoArquivo, StandardCharsets.UTF_8);
+            Usuario[] arrayDeUsuarios = gson.fromJson(meuJson, Usuario[].class); // um vetor ainda
+
+            if (arrayDeUsuarios == null)
+                return new ArrayList<>();
+            return new ArrayList<>(Arrays.asList(arrayDeUsuarios));
+
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Erro no nosso arquivo JSON");
             return new ArrayList<>();
         }
     }
 
     public Usuario verificarLogin(String email, String senha) {
         List<Usuario> usuarios = lerDoJson();
-        
+
         for (Usuario u : usuarios) {
             if (u.getEmail().equals(email) && u.getSenha().equals(senha)) {
                 return u; // Login encontrado
@@ -50,13 +52,16 @@ public class UsuarioRepository {
 
     public void cadastrarUsuario(Usuario novoUsuario) {
         List<Usuario> lista = lerDoJson();
-        lista.add(novoUsuario); 
-        
-        
-        try (FileWriter writer = new FileWriter("/dados/usuarios.json")) {
-            gson.toJson(lista, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
+        lista.add(novoUsuario);
+        try {
+            /*esse método vai transformar a minha lista de objetos em uma string no formato do Json */
+            String meuJson = gson.toJson(lista);
+            /*escreve toda a String no meu arquivo */
+            Files.writeString(caminhoDoArquivo, meuJson, StandardCharsets.UTF_8); 
+            System.out.println("vamos ver se passou aqui");
+        } catch (Exception e) {
+            System.out.println("deu ruim para cadastrar pessoa no json");
         }
+
     }
 }
