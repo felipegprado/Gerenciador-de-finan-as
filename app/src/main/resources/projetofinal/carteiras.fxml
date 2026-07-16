@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="30" style="-fx-padding: 40; -fx-background-color: #979DAC;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projetofinal.controller.CarteirasController">
+    
+    <Label text="SUAS CARTEIRAS" textFill="#4a4242" style="-fx-font-size: 30px; -fx-font-weight: bold;" />
+
+    <VBox spacing="15" alignment="CENTER" VBox.vgrow="ALWAYS">
+        <Label text="Selecione uma carteira para continuar:" textFill="#4a4242" style="-fx-font-size: 16px;" />
+        
+        <!-- Esta é a lista onde aparecerão automaticamente as carteiras -->
+        <ListView fx:id="listaCarteiras" prefHeight="300" prefWidth="400" VBox.vgrow="ALWAYS" />
+        
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="Abrir Carteira" onAction="#abrirCarteiraSelecionada" styleClass="meu-botao" />
+            <Button text="Voltar ao Menu" onAction="#voltar" styleClass="meu-botao" />
+        </HBox>
+    </VBox>
+</VBox>

@@ -59,9 +59,9 @@ public class TelaPrincipalController {
         saldoUsuario.setText(String.format("R$ %.2f", usuarioAtual.getSaldoTotal()));
     }
 
-
     /**
      * Método para carregar a tela de Gerenciar Carteiras
+     * 
      * @see gerenciadorCarteiras.fxml
      * @param stageAtual
      */
@@ -70,13 +70,29 @@ public class TelaPrincipalController {
             String caminho = "/projetofinal/gerenciadorCarteiras.fxml";
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
             Parent novaTela = loader.load();
-            
+
             GerenciarCarteirasController controller = loader.getController();
             controller.setUsuarioLogado(this.usuarioAtual);
-            
+
             stageAtual.setScene(new Scene(novaTela));
             stageAtual.show();
-        } catch(Exception e) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navegarParaCarteirasDisponiveis(Stage stageAtual) {
+        try {
+            String caminho = "/projetofinal/carteiras.fxml";
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+            Parent novaTela = loader.load();
+
+            CarteirasController controller = loader.getController();
+            controller.setUsuarioLogado(this.usuarioAtual);
+
+            stageAtual.setScene(new Scene(novaTela));
+            stageAtual.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -118,15 +134,21 @@ public class TelaPrincipalController {
     }
 
     /**
-     * Método identico ao do botão 
-     * @see EntrarGerenciadorCarteiras 
-     * ,mas tive que adpatar porque não usei um botão aqui.
+     * Método identico ao do botão
+     * @see EntrarGerenciadorCarteiras
+     *      ,mas tive que adpatar porque não usei um botão aqui.
      * @param event
      */
     @FXML
     void EntrarGerenciadorCarteirasClicado(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         navegarParaGerenciadorCarteiras(stage);
+    }
+
+    @FXML
+    void EntrarCarteirasDisponiveis(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaCarteirasDisponiveis(stage);
     }
 
 }

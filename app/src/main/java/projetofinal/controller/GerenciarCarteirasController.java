@@ -25,18 +25,17 @@ public class GerenciarCarteirasController {
     @FXML
     private Label mensagemErro;
 
-   
     @FXML
     private ListView<String> listaCarteiras;
 
-    private Usuario usuarioLogado;
+    private Usuario usuarioAtual;
     private UsuarioRepository repositorio = new UsuarioRepository();
 
     /**
-     * Documentação: Recebe o usuário da tela principal e já preenche a lista na tela.
+     * Recebe o usuário da tela principal e já preenche a lista na tela
      */
     public void setUsuarioLogado(Usuario usuario) {
-        this.usuarioLogado = usuario;
+        this.usuarioAtual = usuario;
         atualizarListaNaTela();
     }
 
@@ -46,23 +45,27 @@ public class GerenciarCarteirasController {
     private void atualizarListaNaTela() {
         Label mensagemVazia = new Label("Nenhuma carteira cadastrada ainda.\nCrie uma nova carteira ao lado!");
 
-        /*posso colocar direto no css depois para deixar mais organizado as responsabilidades */
-        mensagemVazia.setStyle("-fx-font-size: 14px; -fx-text-fill: #4a4242; -fx-alignment: center; -fx-text-alignment: center;");
+        /*
+         * posso colocar direto no css depois para deixar mais organizado as
+         * responsabilidades
+         */
+        mensagemVazia.setStyle(
+                "-fx-font-size: 14px; -fx-text-fill: #4a4242; -fx-alignment: center; -fx-text-alignment: center;");
         ObservableList<String> nomesDasCarteiras = FXCollections.observableArrayList();
         listaCarteiras.setPlaceholder(mensagemVazia); // caso não tenha nenhuma carteira cadastrada.
 
-        if (usuarioLogado.getCarteiras() != null) {
-            for (Carteira c : usuarioLogado.getCarteiras()) {
+        if (usuarioAtual.getCarteiras() != null) {
+            for (Carteira c : usuarioAtual.getCarteiras()) {
                 nomesDasCarteiras.add(c.getNome());
             }
         }
-        
-        
+
         listaCarteiras.setItems(nomesDasCarteiras);
     }
 
     /**
      * Cria a carteira, adiciona ao usuário, atualiza a tela e salva
+     * 
      * @param event atributo que pega o clique do Mouse (javaFX)
      */
     @FXML
@@ -71,16 +74,16 @@ public class GerenciarCarteirasController {
 
         if (nome != null && !nome.trim().isEmpty()) {
 
-            if (usuarioLogado.temCarteiraComNome(nome)) {
+            if (usuarioAtual.temCarteiraComNome(nome)) {
                 mensagemErro.setVisible(true);
                 return;
             }
             Carteira novaCarteira = new Carteira(nome.trim());
-            usuarioLogado.adicionarCarteira(novaCarteira);
-            
-            /*aqui eu salvo a mudança no json */
-            repositorio.atualizarUsuario(usuarioLogado);
-            
+            usuarioAtual.adicionarCarteira(novaCarteira);
+
+            /* aqui eu salvo a mudança no json */
+            repositorio.atualizarUsuario(usuarioAtual);
+
             campoNomeNovaCarteira.clear();
             atualizarListaNaTela();
         }
@@ -94,6 +97,7 @@ public class GerenciarCarteirasController {
 
     /**
      * Método para gerenciar o botão de remover a carteira do usuario.
+     * 
      * @param event atributo que pega o clique do Mouse (javaFX)
      */
     @FXML
@@ -101,8 +105,8 @@ public class GerenciarCarteirasController {
         String nomeSelecionado = listaCarteiras.getSelectionModel().getSelectedItem();
 
         if (nomeSelecionado != null) {
-            usuarioLogado.removeCarteira(nomeSelecionado);
-            repositorio.atualizarUsuario(usuarioLogado);
+            usuarioAtual.removeCarteira(nomeSelecionado);
+            repositorio.atualizarUsuario(usuarioAtual);
             atualizarListaNaTela();
         }
         System.out.println("entrou aqui");
@@ -110,6 +114,7 @@ public class GerenciarCarteirasController {
 
     /**
      * Método para controlar o Botão para voltar a tela principal.
+     * 
      * @param event atributo que pega o clique do Mouse (javaFX)
      */
     @FXML
@@ -117,11 +122,11 @@ public class GerenciarCarteirasController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/projetofinal/telaPrincipal.fxml"));
             Parent novaTela = loader.load();
-            
+
             /* tenho que mandar o usuário de novo pq o JavaFX reconstroi a tela do zero */
             TelaPrincipalController controller = loader.getController();
-            controller.setUsuario(usuarioLogado);
-            
+            controller.setUsuario(usuarioAtual);
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(novaTela));
             stage.show();

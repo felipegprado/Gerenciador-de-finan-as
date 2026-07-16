@@ -9,7 +9,6 @@ public class Usuario {
     private String senha;
     private List<Carteira> carteiras;
 
-   
     public Usuario(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
@@ -42,7 +41,7 @@ public class Usuario {
         this.email = email;
     }
 
-        public List<Carteira> getCarteiras() {
+    public List<Carteira> getCarteiras() {
         return carteiras;
     }
 
@@ -51,7 +50,9 @@ public class Usuario {
     }
 
     /**
-     * Processa o saldo de todas as carteiras para que o usuário saiba o saldo total.
+     * Processa o saldo de todas as carteiras para que o usuário saiba o saldo
+     * total.
+     * 
      * @return saldo total do usuário
      */
     public double getSaldoTotal() {
@@ -59,14 +60,15 @@ public class Usuario {
         if (this.carteiras == null)
             return saldo;
 
-        for (Carteira carteira:this.carteiras)
+        for (Carteira carteira : this.carteiras)
             saldo += carteira.calcularSaldo();
         return saldo;
-  
+
     }
 
     /**
      * Metodo para retirar uma carteira selecionada pelo usuário
+     * 
      * @param nomeCarteira String com o nome da carteira.
      */
     public void removeCarteira(String nomeCarteira) {
@@ -83,7 +85,8 @@ public class Usuario {
     }
 
     /**
-     * Método que Verifica se o utilizador já possui uma carteira com o nome especificado.
+     * Método que Verifica se o utilizador já possui uma carteira com o nome
+     * especificado.
      * 
      * @param nome O nome da carteira a ser verificado
      * @return true se o nome já estiver em uso, false se estiver disponível
@@ -92,7 +95,7 @@ public class Usuario {
         if (this.carteiras != null) {
             for (Carteira carteira : this.carteiras) {
                 if (carteira.getNome().equalsIgnoreCase(nome.trim())) {
-                    return true; 
+                    return true;
                 }
             }
         }

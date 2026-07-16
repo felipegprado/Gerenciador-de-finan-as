@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 40; -fx-background-color: #979DAC;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projetofinal.controller.MenuCarteiraController">
+    
+    <Label fx:id="labelNomeCarteira" text="Nome da Carteira" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+    <Label fx:id="labelSaldoCarteira" text="Saldo: R$ 0,00" style="-fx-font-size: 18px;" />
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Adicionar Transação" onAction="#abrirCadastroTransacao" styleClass="meu-botao" />
+        <Button text="Configurar Gatilhos" onAction="#abrirGatilhos" styleClass="meu-botao" />
+    </HBox>
+
+    <ListView fx:id="listaTransacoes" prefHeight="300" prefWidth="400" />
+
+    <Button text="Voltar para Carteiras" onAction="#voltar" styleClass="meu-botao" />
+</VBox>
