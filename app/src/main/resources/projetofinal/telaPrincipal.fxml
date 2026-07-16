@@ -118,7 +118,7 @@
                   <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="45.0" />
                   <VBox layoutX="55.0" layoutY="10.0" prefHeight="100.0" prefWidth="171.0" styleClass="bg_botao_central">
                      <children>
-                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <StackPane fx:id="segundoBotaocarteirasDisponiveis" onMouseClicked="#EntrarGerenciadorCarteirasClicado" prefHeight="150.0" prefWidth="200.0">
                            <children>
                               <Circle fill="#043972" radius="28.0" stroke="#002855" strokeType="INSIDE" />
                               <FontIcon iconColor="#b3cde0" iconLiteral="gmi-settings" iconSize="25" />

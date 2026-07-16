@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import projetofinal.model.Carteira;
 import projetofinal.model.Usuario;
@@ -20,6 +21,9 @@ public class GerenciarCarteirasController {
 
     @FXML
     private TextField campoNomeNovaCarteira;
+
+    @FXML
+    private Label mensagemErro;
 
    
     @FXML
@@ -58,21 +62,34 @@ public class GerenciarCarteirasController {
     }
 
     /**
-     * Documentação: Cria a carteira, adiciona ao usuário, atualiza a tela e salva.
+     * Cria a carteira, adiciona ao usuário, atualiza a tela e salva
+     * @param event atributo que pega o clique do Mouse (javaFX)
      */
     @FXML
     void criarNovaCarteira(ActionEvent event) {
         String nome = campoNomeNovaCarteira.getText();
 
         if (nome != null && !nome.trim().isEmpty()) {
-            Carteira novaCarteira = new Carteira(nome);
+
+            if (usuarioLogado.temCarteiraComNome(nome)) {
+                mensagemErro.setVisible(true);
+                return;
+            }
+            Carteira novaCarteira = new Carteira(nome.trim());
             usuarioLogado.adicionarCarteira(novaCarteira);
             
-            // TODO: Aqui entrará a chamada para salvar no JSON no futuro
+            /*aqui eu salvo a mudança no json */
+            repositorio.atualizarUsuario(usuarioLogado);
             
             campoNomeNovaCarteira.clear();
-            atualizarListaNaTela(); // Atualiza a caixinha visual para mostrar a carteira nova
+            atualizarListaNaTela();
         }
+    }
+
+    @FXML
+    public void limparMensagemErro(MouseEvent event) {
+        campoNomeNovaCarteira.clear();
+        mensagemErro.setVisible(false);
     }
 
     /**

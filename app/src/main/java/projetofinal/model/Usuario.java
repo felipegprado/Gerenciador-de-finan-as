@@ -81,4 +81,21 @@ public class Usuario {
         }
 
     }
+
+    /**
+     * Método que Verifica se o utilizador já possui uma carteira com o nome especificado.
+     * 
+     * @param nome O nome da carteira a ser verificado
+     * @return true se o nome já estiver em uso, false se estiver disponível
+     */
+    public boolean temCarteiraComNome(String nome) {
+        if (this.carteiras != null) {
+            for (Carteira carteira : this.carteiras) {
+                if (carteira.getNome().equalsIgnoreCase(nome.trim())) {
+                    return true; 
+                }
+            }
+        }
+        return false;
+    }
 }

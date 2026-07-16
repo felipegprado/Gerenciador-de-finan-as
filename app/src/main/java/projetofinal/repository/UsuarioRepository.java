@@ -18,7 +18,7 @@ public class UsuarioRepository {
 
     public List<Usuario> lerDoJson() {
         try {
-            /*caso não exista o arquivo */
+            /* caso não exista o arquivo */
             if (!Files.exists(caminhoDoArquivo)) {
                 System.out.println("Não encontramos o arquivo json.");
                 return new ArrayList<>();
@@ -53,10 +53,13 @@ public class UsuarioRepository {
         List<Usuario> lista = lerDoJson();
         lista.add(novoUsuario);
         try {
-            /*esse método vai transformar a minha lista de objetos em uma string no formato do Json */
+            /*
+             * esse método vai transformar a minha lista de objetos em uma string no formato
+             * do Json
+             */
             String meuJson = gson.toJson(lista);
-            /*escreve toda a String no meu arquivo */
-            Files.writeString(caminhoDoArquivo, meuJson, StandardCharsets.UTF_8); 
+            /* escreve toda a String no meu arquivo */
+            Files.writeString(caminhoDoArquivo, meuJson, StandardCharsets.UTF_8);
             System.out.println("vamos ver se passou aqui");
         } catch (Exception e) {
             System.out.println("deu ruim para cadastrar pessoa no json");
@@ -66,7 +69,10 @@ public class UsuarioRepository {
 
     public void atualizarUsuario(Usuario usuarioAtualizado) {
         List<Usuario> usuarios = lerDoJson();
-        /* essa variavel foi o jeito que encontrei para salvar o json só quando encontra o usuário */
+        /*
+         * essa variavel foi o jeito que encontrei para salvar o json só quando encontra
+         * o usuário
+         */
         boolean atualizou = false;
 
         for (int i = 0; i < usuarios.size(); i++) {
@@ -77,15 +83,13 @@ public class UsuarioRepository {
             }
         }
 
-        /*vamos atualizar o json */
+        /* vamos atualizar o json */
         if (atualizou) {
             try {
                 String meuJson = gson.toJson(usuarios);
-                
+
                 Files.writeString(caminhoDoArquivo, meuJson, StandardCharsets.UTF_8);
-                System.out.println("Usuário atualizado com sucesso no JSON!");
             } catch (Exception e) {
-                System.out.println("Erro ao tentar atualizar o usuário no JSON.");
                 e.printStackTrace();
             }
         }
