@@ -1,4 +1,4 @@
-package projetofinal.model;
+package projetofinal.model.Alertas;
 
 import java.time.LocalDate;
 

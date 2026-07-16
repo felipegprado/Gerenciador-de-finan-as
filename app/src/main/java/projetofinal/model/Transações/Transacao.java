@@ -1,4 +1,4 @@
-package projetofinal.model;
+package projetofinal.model.Transações;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

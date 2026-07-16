@@ -1,4 +1,6 @@
-package projetofinal.model;
+package projetofinal.model.Alertas;
+
+import projetofinal.model.Interfaces.Notificavel;
 
 public abstract class Alerta implements Notificavel {
     private String mensagem;

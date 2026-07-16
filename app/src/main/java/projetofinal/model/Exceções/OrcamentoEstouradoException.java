@@ -1,4 +1,4 @@
-package projetofinal.model;
+package projetofinal.model.Exceções;
 
 // OrcamentoEstouradoException.java
 public class OrcamentoEstouradoException extends RuntimeException {

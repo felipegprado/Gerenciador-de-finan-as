@@ -1,4 +1,4 @@
-package projetofinal.model;
+package projetofinal.model.Alertas;
 
 public class AlertaOrcamento extends Alerta {
     private double valorLimite;

@@ -5,6 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import projetofinal.model.Exceções.FormatoArquivoInvalidoException;
+import projetofinal.model.Transações.Ganho;
+import projetofinal.model.Transações.Gasto;
+
 public class GerenciadorArquivos {
 
     public void salvarDados(Carteira c, String caminho) {

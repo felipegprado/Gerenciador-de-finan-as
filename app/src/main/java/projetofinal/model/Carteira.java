@@ -7,6 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import projetofinal.model.Alertas.Alerta;
+import projetofinal.model.Alertas.AlertaOrcamento;
+import projetofinal.model.Interfaces.Exportavel;
+import projetofinal.model.Interfaces.Pesquisavel;
+import projetofinal.model.Transações.Gasto;
+import projetofinal.model.Transações.Transacao;
+
 public class Carteira implements Pesquisavel, Exportavel {
     private String nome;
     private List<Transacao> transacoes;
