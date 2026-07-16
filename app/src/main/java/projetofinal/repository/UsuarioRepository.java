@@ -63,4 +63,31 @@ public class UsuarioRepository {
         }
 
     }
+
+    public void atualizarUsuario(Usuario usuarioAtualizado) {
+        List<Usuario> usuarios = lerDoJson();
+        /* essa variavel foi o jeito que encontrei para salvar o json só quando encontra o usuário */
+        boolean atualizou = false;
+
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i).getEmail().equals(usuarioAtualizado.getEmail())) {
+                usuarios.set(i, usuarioAtualizado);
+                atualizou = true;
+                break;
+            }
+        }
+
+        /*vamos atualizar o json */
+        if (atualizou) {
+            try {
+                String meuJson = gson.toJson(usuarios);
+                
+                Files.writeString(caminhoDoArquivo, meuJson, StandardCharsets.UTF_8);
+                System.out.println("Usuário atualizado com sucesso no JSON!");
+            } catch (Exception e) {
+                System.out.println("Erro ao tentar atualizar o usuário no JSON.");
+                e.printStackTrace();
+            }
+        }
+    }
 }

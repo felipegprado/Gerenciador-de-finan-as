@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="30" style="-fx-padding: 40; -fx-background-color: #979DAC;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projetofinal.controller.GerenciarCarteirasController">
+    
+    <Label text="GERENCIAR CARTEIRAS" textFill="#4a4242" style="-fx-font-size: 30px; -fx-font-weight: bold;" />
+
+    <HBox spacing="40" alignment="CENTER" VBox.vgrow="ALWAYS">
+        
+
+        <VBox spacing="15" alignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label text="Suas Carteiras Cadastradas:" textFill="#4a4242" style="-fx-font-size: 16px;" />
+            
+            <ListView fx:id="listaCarteiras" prefHeight="200" prefWidth="250" VBox.vgrow="ALWAYS" />
+            
+            <Button text="Remover Selecionada" onAction="#removerCarteira" styleClass="meu-botao" prefWidth="250" />
+        </VBox>
+
+        <VBox spacing="15" alignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label text="Criar Nova Carteira:" textFill="#4a4242" style="-fx-font-size: 16px;" />
+            
+            <TextField fx:id="campoNomeNovaCarteira" promptText="Digite o nome da carteira" prefWidth="250" />
+            
+            <Button text="Criar Carteira" onAction="#criarNovaCarteira" styleClass="meu-botao" prefWidth="250" />
+        </VBox>
+        
+    </HBox>
+
+    <Button text="Voltar para o Menu" onAction="#voltar" styleClass="meu-botao" prefWidth="200" />
+</VBox>

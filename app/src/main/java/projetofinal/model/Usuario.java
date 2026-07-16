@@ -42,7 +42,7 @@ public class Usuario {
         this.email = email;
     }
 
-    public List<Carteira> getCarteiras() {
+        public List<Carteira> getCarteiras() {
         return carteiras;
     }
 
@@ -63,5 +63,22 @@ public class Usuario {
             saldo += carteira.calcularSaldo();
         return saldo;
   
+    }
+
+    /**
+     * Metodo para retirar uma carteira selecionada pelo usuário
+     * @param nomeCarteira String com o nome da carteira.
+     */
+    public void removeCarteira(String nomeCarteira) {
+
+        for (int i = 0; i < this.carteiras.size(); i++) {
+            Carteira carteira = this.carteiras.get(i);
+
+            if (carteira.getNome().equals(nomeCarteira)) {
+                this.carteiras.remove(i);
+                return;
+            }
+        }
+
     }
 }
