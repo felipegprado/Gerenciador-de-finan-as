@@ -56,6 +56,10 @@ public class LoginController {
                     String caminho = "/projetofinal/telaPrincipal.fxml";
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
                     Parent novaTela = loader.load(); // cria um objeto parent que representa a minha tela
+
+                    /*aqui onde vou passar o usuário logado para a tela principal */
+                   TelaPrincipalController controller = loader.getController();
+                   controller.setUsuario(usuarioJson);
     
                     //Obtém a janela (Stage) atual através do clique do botão
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // defato a tela do sistema operacional

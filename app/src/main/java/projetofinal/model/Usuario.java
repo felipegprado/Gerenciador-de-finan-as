@@ -49,4 +49,19 @@ public class Usuario {
     public String getSenha() {
         return this.senha;
     }
+
+    /**
+     * Processa o saldo de todas as carteiras para que o usuário saiba o saldo total.
+     * @return saldo total do usuário
+     */
+    public double getSaldoTotal() {
+        double saldo = 0;
+        if (this.carteiras == null)
+            return saldo;
+
+        for (Carteira carteira:this.carteiras)
+            saldo += carteira.calcularSaldo();
+        return saldo;
+  
+    }
 }

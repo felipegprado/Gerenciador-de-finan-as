@@ -22,5 +22,11 @@
         "email": "zezeDiCamargo",
         "senha": "eluciano",
         "carteiras": []
+    },
+    {
+        "nome": "novo usuario",
+        "email": "novo",
+        "senha": "usuario",
+        "carteiras": []
     }
 ]

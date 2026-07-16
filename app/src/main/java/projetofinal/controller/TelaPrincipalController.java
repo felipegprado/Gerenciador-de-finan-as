@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import projetofinal.model.Usuario;
 
 public class TelaPrincipalController {
 
@@ -29,6 +30,18 @@ public class TelaPrincipalController {
 
     @FXML
     private Label saldoUsuario;
+
+    /** Atributo para armazenar o usuário que acabou de entrar*/
+    private Usuario usuarioAtual;
+
+    public void setUsuario(Usuario usuario) {
+        this.usuarioAtual = usuario;
+        this.atualizaSaldo();
+    }
+
+    private void atualizaSaldo() {
+        saldoUsuario.setText(String.format("R$ %.2f", usuarioAtual.getSaldoTotal()));
+    }
 
     @FXML
     void sairPagina(ActionEvent event) {
