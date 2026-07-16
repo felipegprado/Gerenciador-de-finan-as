@@ -1,6 +1,16 @@
 package projetofinal.repository;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import java.lang.reflect.Type;
+import projetofinal.model.Ganho;
+import projetofinal.model.Gasto;
+import projetofinal.model.Transacao;
 import projetofinal.model.Usuario;
 
 import java.nio.charset.StandardCharsets;
@@ -13,8 +23,36 @@ import java.util.List;
 
 public class UsuarioRepository {
 
-    private Gson gson = new Gson();
+    private Gson gson;
     private Path caminhoDoArquivo = Paths.get("usuarios.json");
+
+    public UsuarioRepository() {
+        GsonBuilder builder = new GsonBuilder();
+
+        // Registramos um adaptador para ensinar o Gson a ler a classe Transacao
+        builder.registerTypeAdapter(Transacao.class, new JsonDeserializer<Transacao>() {
+            @Override
+            public Transacao deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                    throws JsonParseException {
+                JsonObject jsonObject = json.getAsJsonObject();
+
+                // Verifica se o JSON possui o atributo "fonte" (exclusivo de Ganho)
+                if (jsonObject.has("fonte")) {
+                    return context.deserialize(json, Ganho.class);
+                }
+                // Verifica se o JSON possui o atributo "localidade" ou "frequencia" (exclusivos
+                // de Gasto)
+                else if (jsonObject.has("localidade") || jsonObject.has("frequencia")) {
+                    return context.deserialize(json, Gasto.class);
+                }
+
+                throw new JsonParseException("Tipo de transação desconhecido no JSON.");
+            }
+        });
+
+        // Cria a instância do Gson com as nossas regras customizadas
+        this.gson = builder.create();
+    }
 
     public List<Usuario> lerDoJson() {
         try {

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- O VBox organiza os elementos verticalmente, um abaixo do outro -->
+<VBox alignment="CENTER" spacing="15.0" style="-fx-padding: 40; -fx-background-color: #979DAC;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projetofinal.controller.CadastroTransacaoController">
+    <children>
+        <Label text="NOVA TRANSAÇÃO" textFill="#4a4242">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <!-- Campo para a descrição da transação -->
+        <VBox spacing="5.0">
+            <Label text="Descrição:" textFill="#4a4242"/>
+            <TextField fx:id="campoDescricao" promptText="Ex: Supermercado, Salário..." />
+        </VBox>
+
+        <!-- Campo para o valor da transação -->
+        <VBox spacing="5.0">
+            <Label text="Valor (R$):" textFill="#4a4242"/>
+            <TextField fx:id="campoValor" promptText="Ex: 150.50" />
+        </VBox>
+
+        <!-- Campo para selecionar a data -->
+        <VBox spacing="5.0">
+            <Label text="Data:" textFill="#4a4242"/>
+            <DatePicker fx:id="campoData" prefWidth="300.0" promptText="Selecione a data" />
+        </VBox>
+
+        <!-- Menu suspenso para escolher se é Gasto ou Ganho -->
+        <VBox spacing="5.0">
+            <Label text="Tipo de Transação:" textFill="#4a4242"/>
+            <ComboBox fx:id="comboTipo" prefWidth="300.0" promptText="Selecione o tipo" />
+        </VBox>
+
+        <!-- Mensagem de erro ou sucesso (invisível por padrão) -->
+        <Label fx:id="mensagemStatus" text="Mensagem" textFill="RED" visible="false">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+
+        <!-- Botão para disparar a ação de cadastro -->
+        <Button fx:id="botaoCadastrar" mnemonicParsing="false" onAction="#cadastrarTransacao" prefHeight="40.0" prefWidth="300.0" styleClass="meu-botao" text="Cadastrar Transação" />
+        
+        <!-- Botão para voltar à tela anterior -->
+        <Button mnemonicParsing="false" onAction="#voltar" prefHeight="40.0" prefWidth="300.0" styleClass="meu-botao" text="Voltar" />
+    </children>
+</VBox>

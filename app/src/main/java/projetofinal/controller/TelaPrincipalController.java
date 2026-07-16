@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import projetofinal.model.Usuario;
+import projetofinal.repository.UsuarioRepository;
 
 public class TelaPrincipalController {
 
@@ -149,6 +150,13 @@ public class TelaPrincipalController {
     void EntrarCarteirasDisponiveis(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         navegarParaCarteirasDisponiveis(stage);
+    }
+
+    @FXML
+    void EntrarCarteirasDisponiveisClicado(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaCarteirasDisponiveis(stage);
+
     }
 
 }

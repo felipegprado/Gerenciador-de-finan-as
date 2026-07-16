@@ -17,11 +17,6 @@ public class Gasto extends Transacao {
         return -getValor(); // Retorna negativo
     }
 
-    @Override
-    public double getValor() {
-        // Garante o retorno negativo automático para dedução do saldo
-        return -super.getValor();
-    }
 
     // Métodos de acesso exigidos no UML
     public String getFrequencia() { 
