@@ -24,6 +24,12 @@ import projetofinal.model.Transações.Ganho;
 import projetofinal.model.Transações.Gasto;
 import projetofinal.model.Transações.Transacao;
 
+/**
+ * Controller da tela principal
+ * 
+ * @see telaPrincipal.fxml
+ *      TelaPrincipalController
+ */
 public class TelaPrincipalController {
 
     @FXML

@@ -32,6 +32,7 @@ public class Carteira implements Pesquisavel, Exportavel {
 
     /**
      * Método para acionar um novo alerta
+     * 
      * @param novoAlerta alerta a ser adicionado.
      */
     public void adicionarAlerta(Alerta novoAlerta) {
@@ -41,6 +42,7 @@ public class Carteira implements Pesquisavel, Exportavel {
     /**
      * Método para adicionar uma nova transação, seja
      * de gasto ou ganho
+     * 
      * @param transacao nova transação
      */
     public void adicionarTransacao(Transacao transacao) {
@@ -107,7 +109,8 @@ public class Carteira implements Pesquisavel, Exportavel {
         return resultados;
     }
 
-    /**    (non-Javadoc)
+    /**
+     * (non-Javadoc)
      *
      * @see projetofinal.model.Interfaces.Exportavel#exportarDados(java.lang.String)
      */
@@ -130,6 +133,7 @@ public class Carteira implements Pesquisavel, Exportavel {
 
     /**
      * Método para a lógica de somar as transações
+     * 
      * @return valor que representa o saldo
      */
     public double calcularSaldo() {
@@ -141,7 +145,8 @@ public class Carteira implements Pesquisavel, Exportavel {
     }
 
     /**
-     *  Méotodo de acesso de nome
+     * Méotodo de acesso de nome
+     * 
      * @return String com o nome
      */
     public String getNome() {
@@ -150,6 +155,7 @@ public class Carteira implements Pesquisavel, Exportavel {
 
     /**
      * Método modificador do nome da carteira para edição
+     * 
      * @param nome novo nome
      */
     public void setNome(String nome) {
@@ -157,7 +163,8 @@ public class Carteira implements Pesquisavel, Exportavel {
     }
 
     /**
-     *  Méotodo de acesso da transação
+     * Méotodo de acesso da transação
+     * 
      * @return lista com as transações
      */
     public List<Transacao> getTransacoes() {
@@ -165,7 +172,8 @@ public class Carteira implements Pesquisavel, Exportavel {
     }
 
     /**
-     *  Méotodo de acesso dos alertas
+     * Méotodo de acesso dos alertas
+     * 
      * @return lista com os alertas
      */
     public List<Alerta> getAlertas() {
@@ -174,6 +182,7 @@ public class Carteira implements Pesquisavel, Exportavel {
 
     /**
      * Método para remover uma transação selecionada
+     * 
      * @param transacao transação selecionada
      * @return booleano que indica se foi possível remover ou não
      */
@@ -183,6 +192,7 @@ public class Carteira implements Pesquisavel, Exportavel {
 
     /**
      * Método para remover um alerta selcionado
+     * 
      * @param alerta alerta que vai ser retirado
      * @return booleano que indica se foi possível a remoção
      */
@@ -210,13 +220,14 @@ public class Carteira implements Pesquisavel, Exportavel {
 
     /**
      * Método para que seja agrupar dados por mês
+     * 
      * @return retorna um hashMap com o mes e o saldo dele
      */
     public Map<String, Double> getDadosPorMes() {
         Map<String, Double> resumo = new HashMap<>();
 
         for (Transacao t : transacoes) {
-            
+
             String anoMes = t.getData().toString().substring(0, 7);
             double saldoAtual = resumo.getOrDefault(anoMes, 0.0);
             resumo.put(anoMes, saldoAtual + t.executarTransacao());

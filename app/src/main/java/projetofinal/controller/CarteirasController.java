@@ -14,6 +14,12 @@ import javafx.stage.Stage;
 import projetofinal.model.Carteira;
 import projetofinal.model.Usuario;
 
+/**
+ * Controller para a tela de carteiras
+ * 
+ * @see carteiras.fxml
+ *      CarteirasController
+ */
 public class CarteirasController {
 
     @FXML

@@ -39,7 +39,7 @@ public class UsuarioRepository {
     private Path caminhoDoArquivo = Paths.get("usuarios.json");
 
     /**
-     * Construtor padrão que configura o Gson para que ele funcione 
+     * Construtor padrão que configura o Gson para que ele funcione
      * corretamente mesmo com classes abstratas e regras de negócios
      * chatas para o Gson lidar naturalmente.
      */
@@ -120,6 +120,7 @@ public class UsuarioRepository {
 
     /**
      * Método responsável pela verificação dos dados no login
+     * 
      * @param email email do usuário
      * @param senha a senha digitada e que vai ser verificada
      * @return
@@ -137,6 +138,7 @@ public class UsuarioRepository {
 
     /**
      * Método responsável por fazer o cadastro
+     * 
      * @param novoUsuario usuario a ser adicionado no Json para o cadastro
      */
     public void cadastrarUsuario(Usuario novoUsuario) {
@@ -159,7 +161,9 @@ public class UsuarioRepository {
 
     /**
      * Método principal para todo o salvamento de dados durante o programa.
-     * basicamente reescreve o json do usuário com as modificações feitas no programa.
+     * basicamente reescreve o json do usuário com as modificações feitas no
+     * programa.
+     * 
      * @param usuarioAtualizado versão do usuário modificada que vai ser salva.
      */
     public void atualizarUsuario(Usuario usuarioAtualizado) {

@@ -33,6 +33,7 @@ public class Usuario {
 
     /**
      * Método de acesso nome do usuário
+     * 
      * @return String com o nome.
      */
     public String getNome() {
@@ -41,6 +42,7 @@ public class Usuario {
 
     /**
      * Método modificador do nome do usuário
+     * 
      * @param nome novo nome a ser colocado
      */
     public void setNome(String nome) {
@@ -49,6 +51,7 @@ public class Usuario {
 
     /**
      * Método de acesso para o email do usuaŕio
+     * 
      * @return string com o email definido pelo usuário
      */
     public String getEmail() {
@@ -57,6 +60,7 @@ public class Usuario {
 
     /**
      * Método modificador do email do usuário.
+     * 
      * @param email novo email
      */
     public void setEmail(String email) {
@@ -65,6 +69,7 @@ public class Usuario {
 
     /**
      * Método de acesso para a lista com todas as carteiras
+     * 
      * @return lista de carteiras
      */
     public List<Carteira> getCarteiras() {
@@ -73,6 +78,7 @@ public class Usuario {
 
     /**
      * Método de acesso para devolver a senha, para eventuais mudanças.
+     * 
      * @return setring com a senha de acesso.
      */
     public String getSenha() {

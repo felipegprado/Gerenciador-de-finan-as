@@ -13,6 +13,12 @@ import javafx.stage.Stage;
 import projetofinal.model.Usuario;
 import projetofinal.repository.UsuarioRepository;
 
+/**
+ * Controller para a tela de cadastro
+ * 
+ * @see cadastro.fxml
+ *      CadastroController
+ */
 public class CadastroController {
 
     @FXML
@@ -27,13 +33,18 @@ public class CadastroController {
     @FXML
     private TextField cadastroUsuario;
 
+    /**
+     * Método para criar um novo cadastro com algumas validações
+     * 
+     * @param event botão do javaFX
+     */
     @FXML
     void criarCadastro(ActionEvent event) {
         String nome = cadastroNome.getText();
         String usuario = cadastroUsuario.getText();
         String senha = cadastroSenha.getText();
 
-        // Validação
+        /* minha validação */
         if (nome.isEmpty() || usuario.isEmpty() || senha.isEmpty()) {
             System.out.println("teste a ser implementado");
             return;

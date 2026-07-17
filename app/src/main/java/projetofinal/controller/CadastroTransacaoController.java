@@ -21,6 +21,12 @@ import projetofinal.model.Transações.Gasto;
 import projetofinal.model.Transações.Transacao;
 import projetofinal.repository.UsuarioRepository;
 
+/**
+ * Controller para a tela de cadastrar transação
+ * 
+ * @see cadastrarTransacao.fxml
+ *      CadastroTransacaoController
+ */
 public class CadastroTransacaoController {
     @FXML
     private TextField campoDescricao;
@@ -94,7 +100,7 @@ public class CadastroTransacaoController {
                     listaTags.add(tag.trim());
                 }
             }
-            /*lógica de adicinonar a transação */
+            /* lógica de adicinonar a transação */
             Transacao novaTransacao;
 
             if (tipo.equals("Ganho")) {
@@ -145,12 +151,22 @@ public class CadastroTransacaoController {
         }
     }
 
+    /**
+     * Método privado apenas para ajustar a mensagem exibida
+     * 
+     * @param msg texto com a mensagem erro
+     */
     private void exibirMensagemErro(String msg) {
         mensagemStatus.setText(msg);
         mensagemStatus.setStyle("-fx-text-fill: red;");
         mensagemStatus.setVisible(true);
     }
 
+    /**
+     * Método privado apenas para ajustar a mensagem ecxibida
+     * 
+     * @param msg texto com a mensagem de sucesso
+     */
     private void exibirMensagemSucesso(String msg) {
         mensagemStatus.setText(msg);
         mensagemStatus.setStyle("-fx-text-fill: green;");

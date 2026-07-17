@@ -15,6 +15,12 @@ import projetofinal.model.Carteira;
 import projetofinal.model.Usuario;
 import projetofinal.model.Transações.Transacao;
 
+/**
+ * Controller para a tela de menu de carteiras
+ * 
+ * @see menucarteiras.fxml
+ *      MenuCarteiraController
+ */
 public class MenuCarteiraController {
 
     @FXML
@@ -92,10 +98,10 @@ public class MenuCarteiraController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/projetofinal/gatilhos.fxml"));
             Parent novaTela = loader.load();
-            
+
             GatilhosController controller = loader.getController();
             controller.setDados(usuarioAtual, carteiraSelecionada);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(novaTela));
             stage.show();

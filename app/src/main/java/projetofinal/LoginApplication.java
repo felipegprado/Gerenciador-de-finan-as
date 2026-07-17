@@ -1,4 +1,4 @@
-package projetofinal; 
+package projetofinal;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,14 +12,15 @@ import javafx.stage.Stage;
  */
 public class LoginApplication extends Application {
 
-    /**    (non-Javadoc)
+    /**
+     * (non-Javadoc)
      *
      * @see javafx.application.Application#start(javafx.stage.Stage)
      */
     @Override
     public void start(Stage stage) throws Exception {
         Parent parent = FXMLLoader.load(getClass().getResource("/projetofinal/login.fxml"));
-        
+
         Scene scene = new Scene(parent);
         stage.setResizable(true);
         stage.setScene(scene);

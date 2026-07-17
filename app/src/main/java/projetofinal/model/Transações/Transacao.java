@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe abstrata responsável por implementar o fundamental
+ * para uma transação seja de gasto ou ganho
+ * Transacao
+ */
 public abstract class Transacao {
     private double valor;
     private String descricao;
@@ -20,12 +25,14 @@ public abstract class Transacao {
 
     /**
      * Método abstrato para que gasto e ganho tenham comportamento diferentes
+     * 
      * @return o valor da transação
      */
     public abstract double executarTransacao();
 
     /**
      * Método de acesso ao valor da transação
+     * 
      * @return
      */
     public double getValor() {
@@ -34,6 +41,7 @@ public abstract class Transacao {
 
     /**
      * método para que a gente consiga editar os valores da transação.
+     * 
      * @param valor novo valor a ser colocado
      */
     public void setValor(double valor) {
@@ -42,6 +50,7 @@ public abstract class Transacao {
 
     /**
      * Método acessor para a descrição da transação
+     * 
      * @return
      */
     public String getDescricao() {
@@ -52,7 +61,7 @@ public abstract class Transacao {
         this.descricao = descricao;
     }
 
-    /*salvamos como string mas na hora de entregar passamos para localData */
+    /* salvamos como string mas na hora de entregar passamos para localData */
     public LocalDate getData() {
         return LocalDate.parse(this.data);
     }
@@ -71,6 +80,7 @@ public abstract class Transacao {
 
     /**
      * Método auxiliar útil para adicionar tags individualmente
+     * 
      * @param tag a tag que serve para a busca e filtro
      */
     public void adicionarTag(String tag) {

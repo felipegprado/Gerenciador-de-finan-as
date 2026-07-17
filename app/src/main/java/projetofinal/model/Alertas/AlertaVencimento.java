@@ -5,6 +5,10 @@ import java.time.LocalDate;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Classe concreta para implementar o alarme de data vencida
+ * AlertaVencimento
+ */
 public class AlertaVencimento extends Alerta {
     private LocalDate dataVencimento;
 
@@ -29,7 +33,7 @@ public class AlertaVencimento extends Alerta {
         janelaAviso.setTitle("Alerta de Vencimento");
         janelaAviso.setHeaderText("Atenção! sua conta está prestes a vencer!");
         janelaAviso.setContentText(msg);
-        
+
         // Mostra a janela na tela
         janelaAviso.showAndWait();
     }
@@ -39,10 +43,20 @@ public class AlertaVencimento extends Alerta {
         enviarNotificacao(getMensagem() + "\nVence em: " + dataVencimento.toString());
     }
 
+    /**
+     * Método acessor para pegar a data de vencimento para disparar o alarme.
+     * 
+     * @return
+     */
     public LocalDate getDataVencimento() {
         return dataVencimento;
     }
 
+    /**
+     * Método modificador para mudar a data de vecimento.
+     * 
+     * @param dataVencimento
+     */
     public void setDataVencimento(LocalDate dataVencimento) {
         this.dataVencimento = dataVencimento;
     }

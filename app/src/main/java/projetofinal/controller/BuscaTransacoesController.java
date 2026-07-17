@@ -18,6 +18,12 @@ import projetofinal.model.Transações.Transacao;
 
 import java.util.List;
 
+/**
+ * Controller para a tela de Busca
+ * 
+ * @see BuscaTransacoes.fxml
+ *      BuscaTransacoesController
+ */
 public class BuscaTransacoesController {
 
     @FXML
@@ -28,9 +34,9 @@ public class BuscaTransacoesController {
 
     private Usuario usuarioAtual;
 
-
     /**
      * Método setter para modificar os atributos do controller
+     * 
      * @param usuario usuario atual no sistema.
      */
     public void setUsuario(Usuario usuario) {
@@ -42,13 +48,14 @@ public class BuscaTransacoesController {
 
     /**
      * Método para fazer a pesquisa usando a interface Pesquisável
+     * 
      * @see Pesquisavel
      * @param event botão (javaFX)
      */
     @FXML
     void pesquisar(ActionEvent event) {
         String termo = campoBusca.getText();
-        
+
         if (termo == null || termo.trim().isEmpty()) {
             return;
         }
@@ -59,8 +66,8 @@ public class BuscaTransacoesController {
             for (Carteira carteira : usuarioAtual.getCarteiras()) {
                 List<Transacao> encontradas = carteira.fazerBusca(termo);
                 for (Transacao t : encontradas) {
-                    String linha = String.format("[%s] %s | %s | R$ %.2f", 
-                        carteira.getNome(), t.getData().toString(), t.getDescricao(), t.getValor());
+                    String linha = String.format("[%s] %s | %s | R$ %.2f",
+                            carteira.getNome(), t.getData().toString(), t.getDescricao(), t.getValor());
                     resultadosVisuais.add(linha);
                 }
             }
@@ -75,6 +82,7 @@ public class BuscaTransacoesController {
 
     /**
      * Método para retornar a tela principal
+     * 
      * @param event botão (javaFX)
      */
     @FXML
@@ -84,7 +92,7 @@ public class BuscaTransacoesController {
             Parent novaTela = loader.load();
             TelaPrincipalController controller = loader.getController();
             controller.setUsuario(usuarioAtual);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(novaTela));
             stage.show();

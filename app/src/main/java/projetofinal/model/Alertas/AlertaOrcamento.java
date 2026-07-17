@@ -3,6 +3,10 @@ package projetofinal.model.Alertas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Classe concreta com o alarme específico para orçamento
+ * AlertaOrcamento
+ */
 public class AlertaOrcamento extends Alerta {
     private double valorLimite;
     private double valorAtual;
@@ -47,10 +51,20 @@ public class AlertaOrcamento extends Alerta {
         return valorLimite;
     }
 
+    /**
+     * Méotodo modificador para adicionar o valor limite de orçamento.
+     * 
+     * @param valorLimite valor definido pelo usuário
+     */
     public void setValorLimite(double valorLimite) {
         this.valorLimite = valorLimite;
     }
 
+    /**
+     * Método acessor para pegar o valor limite do alarme.
+     * 
+     * @return valor em reais do orçamento
+     */
     public double getValorAtual() {
         return valorAtual;
     }

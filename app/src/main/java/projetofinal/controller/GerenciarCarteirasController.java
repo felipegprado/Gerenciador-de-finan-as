@@ -17,6 +17,12 @@ import projetofinal.model.Carteira;
 import projetofinal.model.Usuario;
 import projetofinal.repository.UsuarioRepository;
 
+/**
+ * Controller da tela do gereciador de carteiras
+ * 
+ * @see gerenciarCarteiras.fxml
+ *      GerenciarCarteirasController
+ */
 public class GerenciarCarteirasController {
 
     @FXML

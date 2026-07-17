@@ -16,6 +16,12 @@ import javafx.stage.Stage;
 import projetofinal.model.Usuario;
 import projetofinal.repository.UsuarioRepository;
 
+/**
+ * Controller para a tela de Login
+ * 
+ * @see login.fxml
+ *      LoginController
+ */
 public class LoginController {
 
     @FXML
@@ -42,35 +48,34 @@ public class LoginController {
     void botaoLogin(ActionEvent event) { // o Action event nada mais é o evento do botão ser clicado
         System.out.println("o botão foi clicado !!!!!");
 
-        /*aqui temos o que o usuario digitou */
+        /* aqui temos o que o usuario digitou */
         String usuario = campoEmail.getText();
         String senha = campoSenha.getText();
 
-        /*aqui temos o nossa classe que vai transformar o Json em objeto */
+        /* aqui temos o nossa classe que vai transformar o Json em objeto */
         UsuarioRepository repo = new UsuarioRepository();
 
-        Usuario usuarioJson = repo.verificarLogin(usuario, senha); 
+        Usuario usuarioJson = repo.verificarLogin(usuario, senha);
 
         if (usuarioJson != null) {
             try {
-                    String caminho = "/projetofinal/telaPrincipal.fxml";
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
-                    Parent novaTela = loader.load(); // cria um objeto parent que representa a minha tela
+                String caminho = "/projetofinal/telaPrincipal.fxml";
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+                Parent novaTela = loader.load(); // cria um objeto parent que representa a minha tela
 
-                    /*aqui onde vou passar o usuário logado para a tela principal */
-                   TelaPrincipalController controller = loader.getController();
-                   controller.setUsuario(usuarioJson);
-    
-                    //Obtém a janela (Stage) atual através do clique do botão
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // defato a tela do sistema operacional
-    
-                    // Muda a cena da janela
-                    stage.setScene(new Scene(novaTela));
-                    stage.show();
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                /* aqui onde vou passar o usuário logado para a tela principal */
+                TelaPrincipalController controller = loader.getController();
+                controller.setUsuario(usuarioJson);
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                // Muda a cena da janela
+                stage.setScene(new Scene(novaTela));
+                stage.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } else {
             mensagemLogin.setVisible(true);
@@ -83,20 +88,19 @@ public class LoginController {
     @FXML
     void criarUsuario(MouseEvent event) {
         try {
-                String caminho = "/projetofinal/cadastro.fxml";
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
-                Parent novaTela = loader.load();
+            String caminho = "/projetofinal/cadastro.fxml";
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+            Parent novaTela = loader.load();
 
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                // Muda a cena da janela
-                stage.setScene(new Scene(novaTela));
-                stage.show();
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            // Muda a cena da janela
+            stage.setScene(new Scene(novaTela));
+            stage.show();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -19,19 +19,33 @@ import projetofinal.repository.UsuarioRepository;
 
 import java.time.LocalDate;
 
+/**
+ * Controller para a tela de gatilho de alarmes
+ * 
+ * @see gatilhos.fxml
+ *      GatilhosController
+ */
 public class GatilhosController {
 
-    @FXML private ListView<String> listaAlertas;
-    @FXML private ComboBox<String> comboTipoAlerta;
-    @FXML private TextField campoMensagem;
-    
-    @FXML private VBox caixaValor;
-    @FXML private TextField campoValorLimite;
-    
-    @FXML private VBox caixaData;
-    @FXML private DatePicker campoDataVencimento;
-    
-    @FXML private Label mensagemStatus;
+    @FXML
+    private ListView<String> listaAlertas;
+    @FXML
+    private ComboBox<String> comboTipoAlerta;
+    @FXML
+    private TextField campoMensagem;
+
+    @FXML
+    private VBox caixaValor;
+    @FXML
+    private TextField campoValorLimite;
+
+    @FXML
+    private VBox caixaData;
+    @FXML
+    private DatePicker campoDataVencimento;
+
+    @FXML
+    private Label mensagemStatus;
 
     private Usuario usuarioAtual;
     private Carteira carteiraSelecionada;
@@ -49,12 +63,13 @@ public class GatilhosController {
     }
 
     /**
-     * Mostra ou esconde os campos de Data ou Valor dependendo do que o usuário escolheu no ComboBox.
+     * Mostra ou esconde os campos de Data ou Valor dependendo do que o usuário
+     * escolheu no ComboBox.
      */
     @FXML
     void aoMudarTipoAlerta(ActionEvent event) {
         String selecionado = comboTipoAlerta.getValue();
-        
+
         if (selecionado != null) {
             if (selecionado.contains("Orçamento")) {
                 caixaValor.setVisible(true);
@@ -70,6 +85,11 @@ public class GatilhosController {
         }
     }
 
+    /**
+     * Método para salvar o alerta a se disparar
+     * 
+     * @param event botão do javaFX
+     */
     @FXML
     void salvarAlerta(ActionEvent event) {
         String tipo = comboTipoAlerta.getValue();
@@ -87,7 +107,7 @@ public class GatilhosController {
                 String valorTexto = campoValorLimite.getText().replace(",", ".");
                 double limite = Double.parseDouble(valorTexto);
                 novoAlerta = new AlertaOrcamento(mensagem, limite);
-                
+
             } else if (tipo.contains("Vencimento")) {
                 LocalDate data = campoDataVencimento.getValue();
                 if (data == null) {
@@ -100,7 +120,7 @@ public class GatilhosController {
             if (novoAlerta != null) {
                 carteiraSelecionada.adicionarAlerta(novoAlerta);
                 repositorio.atualizarUsuario(usuarioAtual);
-                
+
                 exibirMensagemSucesso("Alerta cadastrado com sucesso!");
                 limparFormulario();
                 atualizarListaAlertas();
@@ -113,7 +133,7 @@ public class GatilhosController {
 
     private void atualizarListaAlertas() {
         ObservableList<String> alertasVisuais = FXCollections.observableArrayList();
-        
+
         if (carteiraSelecionada.getAlertas() != null) {
             for (Alerta alerta : carteiraSelecionada.getAlertas()) {
                 String info = "";
@@ -122,16 +142,17 @@ public class GatilhosController {
                     info = String.format("[Orçamento] %s (Limite: R$ %.2f)", a.getMensagem(), a.getValorLimite());
                 } else if (alerta instanceof AlertaVencimento) {
                     AlertaVencimento a = (AlertaVencimento) alerta;
-                    info = String.format("[Vencimento] %s (Data: %s)", a.getMensagem(), a.getDataVencimento().toString());
+                    info = String.format("[Vencimento] %s (Data: %s)", a.getMensagem(),
+                            a.getDataVencimento().toString());
                 }
                 alertasVisuais.add(info);
             }
         }
-        
+
         if (alertasVisuais.isEmpty()) {
             alertasVisuais.add("Nenhum alerta configurado.");
         }
-        
+
         listaAlertas.setItems(alertasVisuais);
     }
 
@@ -142,7 +163,7 @@ public class GatilhosController {
             Parent novaTela = loader.load();
             MenuCarteiraController controller = loader.getController();
             controller.setDados(usuarioAtual, carteiraSelecionada);
-            
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(novaTela));
             stage.show();

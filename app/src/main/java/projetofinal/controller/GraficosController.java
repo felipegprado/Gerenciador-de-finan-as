@@ -20,6 +20,12 @@ import projetofinal.model.Transações.Ganho;
 import projetofinal.model.Transações.Gasto;
 import projetofinal.model.Transações.Transacao;
 
+/**
+ * Controller para a tela de Graficos
+ * 
+ * @see graficos.fxml
+ *      GraficosController
+ */
 public class GraficosController {
 
     @FXML
@@ -38,6 +44,7 @@ public class GraficosController {
 
     /***
      * Método para inserir os dados da outra tela
+     * 
      * @param usuario usuario logado no momento
      */
     public void setUsuario(Usuario usuario) {
@@ -143,8 +150,10 @@ public class GraficosController {
         }
         return total;
     }
+
     /**
      * Método para voltar para a tela principal
+     * 
      * @param event botão (javaFX)
      */
     @FXML

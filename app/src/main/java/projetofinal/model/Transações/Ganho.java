@@ -3,12 +3,12 @@ package projetofinal.model.Transações;
 import java.util.List;
 
 /**
- * Classe concreta que herda de transação e representa um 
+ * Classe concreta que herda de transação e representa um
  * saldo positivo na transação.
  * Ganho
  */
 public class Ganho extends Transacao {
-    private String fonte; 
+    private String fonte;
 
     public Ganho(double valor, String descricao, String data, List<String> tags, String fonte) {
         super(valor, descricao, data, tags);
@@ -17,7 +17,7 @@ public class Ganho extends Transacao {
 
     @Override
     public double executarTransacao() {
-        return getValor(); 
+        return getValor();
     }
 
     @Override
@@ -28,13 +28,14 @@ public class Ganho extends Transacao {
 
     /**
      * Método para adicionar colocar a fonte da transação
+     * 
      * @return
      */
-    public String getFonte() { 
-        return fonte; 
+    public String getFonte() {
+        return fonte;
     }
-    
-    public void setFonte(String fonte) { 
-        this.fonte = fonte; 
+
+    public void setFonte(String fonte) {
+        this.fonte = fonte;
     }
 }

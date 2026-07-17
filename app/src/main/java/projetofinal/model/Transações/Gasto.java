@@ -2,9 +2,13 @@ package projetofinal.model.Transações;
 
 import java.util.List;
 
+/**
+ * Classe concreta para as regras de negócio da transação específica de gasto
+ * Gasto
+ */
 public class Gasto extends Transacao {
-    private String frequencia; 
-    private String localidade; 
+    private String frequencia;
+    private String localidade;
 
     public Gasto(double valor, String descricao, String data, List<String> tags, String frequencia, String localidade) {
         super(valor, descricao, data, tags);
@@ -14,24 +18,40 @@ public class Gasto extends Transacao {
 
     @Override
     public double executarTransacao() {
-        return -getValor(); // Retorna negativo
+        return -getValor();
     }
 
-
-    // Métodos de acesso exigidos no UML
-    public String getFrequencia() { 
-        return frequencia; 
-    }
-    
-    public void setFrequencia(String frequencia) { 
-        this.frequencia = frequencia; 
+    /**
+     * Método acessor para a frequência do gasto
+     */
+    public String getFrequencia() {
+        return frequencia;
     }
 
-    public String getLocalidade() { 
-        return localidade; 
+    /**
+     * Método para mudar a frequencia do gasto.
+     * 
+     * @param frequencia texto com a frequencia
+     */
+    public void setFrequencia(String frequencia) {
+        this.frequencia = frequencia;
     }
-    
-    public void setLocalidade(String localidade) { 
-        this.localidade = localidade; 
+
+    /**
+     * Método para pegar o local do gasto caso seja informado
+     * 
+     * @return Texto com a localidade
+     */
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    /**
+     * Método para mudar a localidade caso ela seja definida
+     * 
+     * @param localidade texto com a localidade
+     */
+    public void setLocalidade(String localidade) {
+        this.localidade = localidade;
     }
 }
