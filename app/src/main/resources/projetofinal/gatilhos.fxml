@@ -20,7 +20,6 @@
       
       <HBox spacing="30.0" VBox.vgrow="ALWAYS">
          <children>
-            <!-- Coluna da Esquerda: Lista de Alertas -->
             <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Alertas Cadastrados:" textFill="#4a4242">
@@ -30,7 +29,6 @@
                </children>
             </VBox>
             
-            <!-- Coluna da Direita: Formulário para Novo Alerta -->
             <VBox alignment="TOP_CENTER" prefWidth="350.0" spacing="15.0" style="-fx-background-color: #b3cde0; -fx-padding: 20; -fx-background-radius: 10;">
                <children>
                   <Label text="Novo Gatilho" textFill="#001233">
@@ -47,13 +45,11 @@
                      <TextField fx:id="campoMensagem" promptText="Ex: Cuidado! Aluguel próximo!" />
                   </VBox>
                   
-                  <!-- Este campo será ativado apenas se for alerta de Orçamento -->
                   <VBox fx:id="caixaValor" spacing="5.0" visible="false" managed="false">
                      <Label text="Valor Limite (R$):" textFill="#001233" />
                      <TextField fx:id="campoValorLimite" promptText="Ex: 1500.00" />
                   </VBox>
                   
-                  <!-- Este campo será ativado apenas se for alerta de Vencimento -->
                   <VBox fx:id="caixaData" spacing="5.0" visible="false" managed="false">
                      <Label text="Data de Vencimento:" textFill="#001233" />
                      <DatePicker fx:id="campoDataVencimento" prefWidth="300.0" />

@@ -2,6 +2,11 @@ package projetofinal.model.Transações;
 
 import java.util.List;
 
+/**
+ * Classe concreta que herda de transação e representa um 
+ * saldo positivo na transação.
+ * Ganho
+ */
 public class Ganho extends Transacao {
     private String fonte; 
 
@@ -12,16 +17,19 @@ public class Ganho extends Transacao {
 
     @Override
     public double executarTransacao() {
-        return getValor(); // Retorna positivo
+        return getValor(); 
     }
 
     @Override
     public double getValor() {
-        // Garante retorno positivo para a soma da carteira
+
         return super.getValor();
     }
 
-    // Métodos de acesso exigidos no UML
+    /**
+     * Método para adicionar colocar a fonte da transação
+     * @return
+     */
     public String getFonte() { 
         return fonte; 
     }

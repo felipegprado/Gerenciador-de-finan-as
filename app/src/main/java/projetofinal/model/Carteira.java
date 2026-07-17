@@ -14,6 +14,11 @@ import projetofinal.model.Interfaces.Pesquisavel;
 import projetofinal.model.Transações.Gasto;
 import projetofinal.model.Transações.Transacao;
 
+/**
+ * Classe para a lógica e regras de negócios da Carteira do usuário.
+ * Implementa duas interfaces que são requisitos.
+ * Carteira
+ */
 public class Carteira implements Pesquisavel, Exportavel {
     private String nome;
     private List<Transacao> transacoes;
@@ -25,18 +30,30 @@ public class Carteira implements Pesquisavel, Exportavel {
         this.alertas = new ArrayList<>();
     }
 
+    /**
+     * Método para acionar um novo alerta
+     * @param novoAlerta alerta a ser adicionado.
+     */
     public void adicionarAlerta(Alerta novoAlerta) {
         this.alertas.add(novoAlerta);
     }
 
-    public void adicionarTransacao(Transacao t) {
-        this.transacoes.add(t);
+    /**
+     * Método para adicionar uma nova transação, seja
+     * de gasto ou ganho
+     * @param transacao nova transação
+     */
+    public void adicionarTransacao(Transacao transacao) {
+        this.transacoes.add(transacao);
 
-        if (t instanceof Gasto) {
+        if (transacao instanceof Gasto) {
             checarOrcamento();
         }
     }
 
+    /**
+     * Método para validar se o orçamento foi estourado.
+     */
     private void checarOrcamento() {
         double totalJaGasto = 0.0;
 
@@ -90,6 +107,10 @@ public class Carteira implements Pesquisavel, Exportavel {
         return resultados;
     }
 
+    /**    (non-Javadoc)
+     *
+     * @see projetofinal.model.Interfaces.Exportavel#exportarDados(java.lang.String)
+     */
     @Override
     public void exportarDados(String caminho) {
         try (FileWriter escritor = new FileWriter(caminho)) {
@@ -107,6 +128,10 @@ public class Carteira implements Pesquisavel, Exportavel {
         }
     }
 
+    /**
+     * Método para a lógica de somar as transações
+     * @return valor que representa o saldo
+     */
     public double calcularSaldo() {
         double saldo = 0.0;
         for (Transacao t : transacoes) {
@@ -123,6 +148,10 @@ public class Carteira implements Pesquisavel, Exportavel {
         return nome;
     }
 
+    /**
+     * Método modificador do nome da carteira para edição
+     * @param nome novo nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }

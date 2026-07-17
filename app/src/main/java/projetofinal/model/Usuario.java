@@ -3,6 +3,10 @@ package projetofinal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe com toda a lógica e regras de negócio para lidar com o usuário.
+ * Usuario
+ */
 public class Usuario {
     private String nome;
     private String email;
@@ -16,7 +20,9 @@ public class Usuario {
         this.senha = senha;
     }
 
-    /* criei esse construtor para conseuir usar o Gson */
+    /**
+     * Construtor alternativo apenas para a persistência de dados pelo Gson
+     */
     public Usuario() {
         super();
     }
@@ -25,26 +31,50 @@ public class Usuario {
         this.carteiras.add(c);
     }
 
+    /**
+     * Método de acesso nome do usuário
+     * @return String com o nome.
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Método modificador do nome do usuário
+     * @param nome novo nome a ser colocado
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Método de acesso para o email do usuaŕio
+     * @return string com o email definido pelo usuário
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Método modificador do email do usuário.
+     * @param email novo email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Método de acesso para a lista com todas as carteiras
+     * @return lista de carteiras
+     */
     public List<Carteira> getCarteiras() {
         return carteiras;
     }
 
+    /**
+     * Método de acesso para devolver a senha, para eventuais mudanças.
+     * @return setring com a senha de acesso.
+     */
     public String getSenha() {
         return this.senha;
     }

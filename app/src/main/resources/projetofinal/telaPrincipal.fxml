@@ -168,7 +168,6 @@
             
             <Pane layoutX="10.0" layoutY="110.0" prefHeight="40.0" prefWidth="1000.0" />
             
-            <!-- NOVA SEÇÃO: Retângulo de Histórico -->
             <HBox prefHeight="220.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
                   <Pane prefWidth="45.0" />

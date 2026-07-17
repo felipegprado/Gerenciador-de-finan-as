@@ -6,8 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Classe principal do Java FX para a entrada no programa.
+ * LoginApplication
+ */
 public class LoginApplication extends Application {
 
+    /**    (non-Javadoc)
+     *
+     * @see javafx.application.Application#start(javafx.stage.Stage)
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent parent = FXMLLoader.load(getClass().getResource("/projetofinal/login.fxml"));

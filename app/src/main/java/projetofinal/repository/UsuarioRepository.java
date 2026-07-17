@@ -29,28 +29,32 @@ import projetofinal.model.Transações.Ganho;
 import projetofinal.model.Transações.Gasto;
 import projetofinal.model.Transações.Transacao;
 
+/**
+ * Classe responsável por lidar com o salvamento de dados
+ * no json.
+ */
 public class UsuarioRepository {
 
     private Gson gson;
     private Path caminhoDoArquivo = Paths.get("usuarios.json");
 
+    /**
+     * Construtor padrão que configura o Gson para que ele funcione 
+     * corretamente mesmo com classes abstratas e regras de negócios
+     * chatas para o Gson lidar naturalmente.
+     */
     public UsuarioRepository() {
         GsonBuilder builder = new GsonBuilder();
 
-        // Registramos um adaptador para ensinar o Gson a ler a classe Transacao
         builder.registerTypeAdapter(Transacao.class, new JsonDeserializer<Transacao>() {
             @Override
             public Transacao deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                     throws JsonParseException {
                 JsonObject jsonObject = json.getAsJsonObject();
 
-                // Verifica se o JSON possui o atributo "fonte" (exclusivo de Ganho)
                 if (jsonObject.has("fonte")) {
                     return context.deserialize(json, Ganho.class);
-                }
-                // Verifica se o JSON possui o atributo "localidade" ou "frequencia" (exclusivos
-                // de Gasto)
-                else if (jsonObject.has("localidade") || jsonObject.has("frequencia")) {
+                } else if (jsonObject.has("localidade") || jsonObject.has("frequencia")) {
                     return context.deserialize(json, Gasto.class);
                 }
 
@@ -66,8 +70,7 @@ public class UsuarioRepository {
 
                 if (jsonObject.has("valorLimite")) {
                     return context.deserialize(json, AlertaOrcamento.class);
-                }
-                else if (jsonObject.has("dataVencimento")) {
+                } else if (jsonObject.has("dataVencimento")) {
                     return context.deserialize(json, AlertaVencimento.class);
                 }
 
@@ -84,7 +87,8 @@ public class UsuarioRepository {
 
         builder.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
             @Override
-            public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                    throws JsonParseException {
                 return LocalDate.parse(json.getAsString()); // Lê o formato "YYYY-MM-DD"
             }
         });
@@ -114,6 +118,12 @@ public class UsuarioRepository {
         }
     }
 
+    /**
+     * Método responsável pela verificação dos dados no login
+     * @param email email do usuário
+     * @param senha a senha digitada e que vai ser verificada
+     * @return
+     */
     public Usuario verificarLogin(String email, String senha) {
         List<Usuario> usuarios = lerDoJson();
 
@@ -125,6 +135,10 @@ public class UsuarioRepository {
         return null;
     }
 
+    /**
+     * Método responsável por fazer o cadastro
+     * @param novoUsuario usuario a ser adicionado no Json para o cadastro
+     */
     public void cadastrarUsuario(Usuario novoUsuario) {
         List<Usuario> lista = lerDoJson();
         lista.add(novoUsuario);
@@ -143,6 +157,11 @@ public class UsuarioRepository {
 
     }
 
+    /**
+     * Método principal para todo o salvamento de dados durante o programa.
+     * basicamente reescreve o json do usuário com as modificações feitas no programa.
+     * @param usuarioAtualizado versão do usuário modificada que vai ser salva.
+     */
     public void atualizarUsuario(Usuario usuarioAtualizado) {
         List<Usuario> usuarios = lerDoJson();
         /*
