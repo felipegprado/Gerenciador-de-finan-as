@@ -10,7 +10,7 @@
 
 <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" styleClass="estilo_cadastro" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projetofinal.controller.CadastroController">
    <children>
-      <Label alignment="CENTER" prefHeight="153.0" prefWidth="443.0" text="CADASTRO DE USUÁRIO" textFill="#4a4242" VBox.vgrow="ALWAYS">
+      <Label alignment="CENTER" text="CADASTRO DE USUÁRIO" textFill="#4a4242" VBox.vgrow="ALWAYS">
          <font>
             <Font name="System Bold Italic" size="40.0" />
          </font>
