@@ -12,6 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import projetofinal.model.*;
+import projetofinal.model.Alertas.Alerta;
+import projetofinal.model.Alertas.AlertaOrcamento;
+import projetofinal.model.Alertas.AlertaVencimento;
 import projetofinal.repository.UsuarioRepository;
 
 import java.time.LocalDate;

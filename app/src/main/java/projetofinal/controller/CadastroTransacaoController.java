@@ -1,5 +1,7 @@
 package projetofinal.controller;
 
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,14 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import projetofinal.model.Carteira;
-import projetofinal.model.Ganho;
-import projetofinal.model.Gasto;
-import projetofinal.model.Transacao;
 import projetofinal.model.Usuario;
+import projetofinal.model.Exceções.OrcamentoEstouradoException;
+import projetofinal.model.Transações.Ganho;
+import projetofinal.model.Transações.Gasto;
+import projetofinal.model.Transações.Transacao;
 import projetofinal.repository.UsuarioRepository;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class CadastroTransacaoController {
     @FXML
@@ -113,7 +113,7 @@ public class CadastroTransacaoController {
                     limparFormulario();
                     campoTags.clear();
 
-                } catch (projetofinal.model.OrcamentoEstouradoException erroOrcamento) {
+                } catch (OrcamentoEstouradoException erroOrcamento) {
                     exibirMensagemErro(erroOrcamento.getMessage());
                 }
             } else {
