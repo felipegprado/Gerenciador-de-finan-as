@@ -52,12 +52,7 @@
             }
         ]
     },
-    {
-        "nome": "lucas",
-        "email": "lucas",
-        "senha": "123",
-        "carteiras": []
-    },
+
     {
         "nome": "zeze",
         "email": "zezeDiCamargo",
