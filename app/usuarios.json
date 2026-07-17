@@ -1,1 +1,85 @@
-[{"nome":"PQD","email":"pqd","senha":"123","carteiras":[{"nome":"oie","transacoes":[{"fonte":"Não informada","valor":220.0,"descricao":"cachorrinho","data":"2026-07-11","tags":[]}],"alertas":[]},{"nome":"mercadinho ze","transacoes":[{"fonte":"Não informada","valor":1250.0,"descricao":"conta padoca","data":"2026-07-12","tags":[]},{"frequencia":"Único","localidade":"Não informado","valor":12.5,"descricao":"churros do seu zé","data":"2026-07-14","tags":[]}],"alertas":[]}]},{"nome":"lucas","email":"lucas","senha":"123","carteiras":[]},{"nome":"zeze","email":"zezeDiCamargo","senha":"eluciano","carteiras":[]},{"nome":"novo usuario","email":"novo","senha":"usuario","carteiras":[]},{"nome":"Neymar","email":"Ney","senha":"123","carteiras":[{"nome":"Mercado","transacoes":[],"alertas":[]}]}]
+[
+    {
+        "nome": "PQD",
+        "email": "pqd",
+        "senha": "123",
+        "carteiras": [
+            {
+                "nome": "oie",
+                "transacoes": [
+                    {
+                        "fonte": "Não informada",
+                        "valor": 220.0,
+                        "descricao": "cachorrinho",
+                        "data": "2026-07-11",
+                        "tags": []
+                    }
+                ],
+                "alertas": []
+            },
+            {
+                "nome": "mercadinho ze",
+                "transacoes": [
+                    {
+                        "fonte": "Não informada",
+                        "valor": 1250.0,
+                        "descricao": "conta padoca",
+                        "data": "2026-07-12",
+                        "tags": []
+                    },
+                    {
+                        "frequencia": "Único",
+                        "localidade": "Não informado",
+                        "valor": 12.5,
+                        "descricao": "churros do seu zé",
+                        "data": "2026-07-14",
+                        "tags": []
+                    },
+                    {
+                        "frequencia": "Único",
+                        "localidade": "Não informado",
+                        "valor": 25.0,
+                        "descricao": "paozinho",
+                        "data": "2026-07-17",
+                        "tags": [
+                            "casa",
+                            "mesa",
+                            "banho"
+                        ]
+                    }
+                ],
+                "alertas": []
+            }
+        ]
+    },
+    {
+        "nome": "lucas",
+        "email": "lucas",
+        "senha": "123",
+        "carteiras": []
+    },
+    {
+        "nome": "zeze",
+        "email": "zezeDiCamargo",
+        "senha": "eluciano",
+        "carteiras": []
+    },
+    {
+        "nome": "novo usuario",
+        "email": "novo",
+        "senha": "usuario",
+        "carteiras": []
+    },
+    {
+        "nome": "Neymar",
+        "email": "Ney",
+        "senha": "123",
+        "carteiras": [
+            {
+                "nome": "Mercado",
+                "transacoes": [],
+                "alertas": []
+            }
+        ]
+    }
+]   

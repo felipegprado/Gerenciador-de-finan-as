@@ -14,7 +14,7 @@ public abstract class Transacao {
         this.valor = valor;
         this.descricao = descricao;
         this.data = data;
-        // Evita NullPointerException se passarem uma lista nula
+        // Evita NullPointerException se passarem uma lis
         this.tags = (tags != null) ? tags : new ArrayList<>();
     }
 

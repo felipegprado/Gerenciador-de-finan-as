@@ -39,9 +39,12 @@ public class CadastroTransacaoController {
 
     private Carteira carteiraAtual;
 
-    private Usuario usuarioAtual; /*preciso disso para reconstruir a tela anterior*/
+    private Usuario usuarioAtual; /* preciso disso para reconstruir a tela anterior */
 
     private UsuarioRepository repositorio = new UsuarioRepository();
+
+    @FXML
+    private TextField campoTags;
 
     /**
      * Este método é chamado automaticamente quando a tela é carregada.
@@ -55,6 +58,7 @@ public class CadastroTransacaoController {
 
     /**
      * Método para receber a carteira selecionada da tela anterior.
+     * 
      * @param carteira A carteira onde a transação será adicionada.
      */
     public void setDados(Carteira carteira, Usuario usuario) {
@@ -80,22 +84,38 @@ public class CadastroTransacaoController {
 
             double valor = Double.parseDouble(valorTexto.replace(",", "."));
 
-            /*aqui eu escolho qual será o tipo de transação */
+            String textoTags = campoTags.getText();
+            java.util.List<String> listaTags = new java.util.ArrayList<>();
+
+            if (textoTags != null && !textoTags.trim().isEmpty()) {
+                String[] tagsSeparadas = textoTags.split(",");
+
+                for (String tag : tagsSeparadas) {
+                    listaTags.add(tag.trim());
+                }
+            }
+            /*lógica de adicinonar a transação */
             Transacao novaTransacao;
-            
+
             if (tipo.equals("Ganho")) {
-                novaTransacao = new Ganho(valor, descricao, dataSelecionada.toString(), new ArrayList<>(), "Não informada");
+                novaTransacao = new Ganho(valor, descricao, dataSelecionada.toString(), listaTags, "Não informada");
             } else {
-                novaTransacao = new Gasto(valor, descricao, dataSelecionada.toString(), new ArrayList<>(), "Único", "Não informado");
+                novaTransacao = new Gasto(valor, descricao, dataSelecionada.toString(), listaTags, "Único",
+                        "Não informado");
             }
 
-            // 5. Adicionar a transação à carteira atual
             if (carteiraAtual != null) {
-                carteiraAtual.adicionarTransacao(novaTransacao);
-                exibirMensagemSucesso("Transação cadastrada com sucesso!");
-                /*vamos salvar logo no Json para não dar zica */
-                repositorio.atualizarUsuario(usuarioAtual);
-                limparFormulario();
+                try {
+                    carteiraAtual.adicionarTransacao(novaTransacao);
+
+                    exibirMensagemSucesso("Transação cadastrada com sucesso!");
+                    repositorio.atualizarUsuario(usuarioAtual);
+                    limparFormulario();
+                    campoTags.clear();
+
+                } catch (projetofinal.model.OrcamentoEstouradoException erroOrcamento) {
+                    exibirMensagemErro(erroOrcamento.getMessage());
+                }
             } else {
                 exibirMensagemErro("Erro: Nenhuma carteira selecionada.");
             }
@@ -121,7 +141,7 @@ public class CadastroTransacaoController {
             stage.setScene(new Scene(novaTela));
             stage.show();
         } catch (Exception e) {
-            e.printStackTrace();    
+            e.printStackTrace();
         }
     }
 

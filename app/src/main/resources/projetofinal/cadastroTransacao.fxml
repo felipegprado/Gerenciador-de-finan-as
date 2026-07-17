@@ -37,7 +37,11 @@
             <ComboBox fx:id="comboTipo" prefWidth="300.0" promptText="Selecione o tipo" />
         </VBox>
 
-        <!-- Mensagem de erro ou sucesso (invisível por padrão) -->
+        <VBox spacing="5.0">
+            <Label text="Tags (separadas por vírgula):" textFill="#4a4242"/>
+            <TextField fx:id="campoTags" promptText="Ex: Mercado, Lazer, Fixo..." />
+        </VBox>
+
         <Label fx:id="mensagemStatus" text="Mensagem" textFill="RED" visible="false">
             <font>
                 <Font name="System Bold" size="14.0" />
@@ -45,7 +49,6 @@
         </Label>
 
         <Button fx:id="botaoCadastrar" mnemonicParsing="false" onAction="#cadastrarTransacao" prefHeight="40.0" prefWidth="300.0" styleClass="meu-botao" text="Cadastrar Transação" />
-        
         <Button mnemonicParsing="false" onAction="#voltar" prefHeight="40.0" prefWidth="300.0" styleClass="meu-botao" text="Voltar" />
     </children>
 </VBox>
