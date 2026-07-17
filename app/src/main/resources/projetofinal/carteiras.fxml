@@ -9,7 +9,6 @@
     <VBox spacing="15" alignment="CENTER" VBox.vgrow="ALWAYS">
         <Label text="Selecione uma carteira para continuar:" textFill="#4a4242" style="-fx-font-size: 16px;" />
         
-        <!-- Esta é a lista onde aparecerão automaticamente as carteiras -->
         <ListView fx:id="listaCarteiras" prefHeight="300" prefWidth="400" VBox.vgrow="ALWAYS" />
         
         <HBox spacing="20" alignment="CENTER">

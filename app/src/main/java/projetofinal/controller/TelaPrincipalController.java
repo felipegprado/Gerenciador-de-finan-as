@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import projetofinal.model.Usuario;
-import projetofinal.repository.UsuarioRepository;
 
 public class TelaPrincipalController {
 
@@ -98,6 +97,22 @@ public class TelaPrincipalController {
         }
     }
 
+    private void navegarParaGraficos(Stage stageAtual) {
+        try {
+            String caminho = "/projetofinal/graficos.fxml";
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+            Parent novaTela = loader.load();
+
+            GraficosController controller = loader.getController();
+            controller.setUsuario(this.usuarioAtual);
+
+            stageAtual.setScene(new Scene(novaTela));
+            stageAtual.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Método para gerenciar o botão que volta para a tela de Login.
      * 
@@ -135,9 +150,10 @@ public class TelaPrincipalController {
     }
 
     /**
-     * Método identico ao do botão
+     * Método identico ao do botão ,mas tive que adpatar porque não usei um botão
+     * aqui.
+     * 
      * @see EntrarGerenciadorCarteiras
-     *      ,mas tive que adpatar porque não usei um botão aqui.
      * @param event
      */
     @FXML
@@ -157,6 +173,18 @@ public class TelaPrincipalController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         navegarParaCarteirasDisponiveis(stage);
 
+    }
+
+    @FXML
+    void EntrarGraficos(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaGraficos(stage);
+    }
+
+    @FXML
+    void EntrarGraficosClicado(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaGraficos(stage);
     }
 
 }
