@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" style="-fx-padding: 30; -fx-background-color: #979DAC;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projetofinal.controller.BuscaTransacoesController">
+   <children>
+      <Label text="BUSCAR TRANSAÇÕES" textFill="#4a4242">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      
+      <HBox alignment="CENTER" spacing="15.0">
+         <children>
+            <TextField fx:id="campoBusca" prefHeight="40.0" prefWidth="400.0" promptText="Digite uma descrição ou tag..." />
+            <Button mnemonicParsing="false" onAction="#pesquisar" prefHeight="40.0" prefWidth="120.0" styleClass="meu-botao" text="Pesquisar" />
+         </children>
+      </HBox>
+      
+      <ListView fx:id="listaResultados" prefHeight="350.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
+      
+      <Button mnemonicParsing="false" onAction="#voltar" prefHeight="40.0" prefWidth="250.0" styleClass="meu-botao" text="Voltar ao Menu" />
+   </children>
+</VBox>

@@ -62,7 +62,7 @@
          <children>
             <Button fx:id="botaoCarteirasDisponiveis" layoutX="24.0" layoutY="114.0" mnemonicParsing="false" onAction="#EntrarCarteirasDisponiveis" styleClass="menu-item" text="carteiras Disponíveis" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
             <Button fx:id="botaoGraficos" layoutX="48.0" layoutY="243.0" mnemonicParsing="false" onAction="#EntrarGraficos" styleClass="menu-item" text="Gráficos" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
-            <Button fx:id="botaoHistorico" layoutX="25.0" layoutY="302.0" mnemonicParsing="false" styleClass="menu-item" text="Histórico de produtos" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
+            <Button fx:id="botaoBusca" layoutX="25.0" layoutY="302.0" mnemonicParsing="false" onAction="#EntrarBusca" styleClass="menu-item" text="Busas e filtros" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
             <Button fx:id="botaoGerenciarCarteiras" layoutX="56.0" layoutY="176.0" mnemonicParsing="false" onAction="#EntrarGerenciadorCarteiras" styleClass="menu-item" text="Gerenciar Carteiras" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
             <FontIcon iconColor="#b3cde0" iconLiteral="fas-wallet" iconSize="15" layoutX="24.0" layoutY="138.0" />
             <FontIcon iconColor="#b3cde0" iconLiteral="gmi-settings" iconSize="20" layoutX="24.0" layoutY="203.0" />
@@ -149,14 +149,14 @@
                   <Pane layoutX="442.0" layoutY="10.0" prefHeight="100.0" prefWidth="45.0" />
                   <VBox layoutX="487.0" layoutY="10.0" prefHeight="100.0" prefWidth="171.0" styleClass="bg_botao_central">
                      <children>
-                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <StackPane onMouseClicked="#EntrarBuscaClicado" prefHeight="150.0" prefWidth="200.0">
                            <children>
                               <Circle fill="#043972" radius="28.0" stroke="#002855" strokeType="INSIDE" />
                               <FontIcon />
                               <FontIcon iconColor="#b3cde0" iconLiteral="fas-history" iconSize="25" />
                            </children>
                         </StackPane>
-                        <Label text="Histórico de Produtos" textFill="#b3cde0">
+                        <Label prefHeight="18.0" prefWidth="96.0" text="Buscas e Filtros" textFill="#b3cde0">
                            <VBox.margin>
                               <Insets left="22.0" />
                            </VBox.margin>
@@ -172,7 +172,7 @@
             <HBox prefHeight="220.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
                   <Pane prefWidth="45.0" />
-                  <VBox styleClass="bg_menu_icones" HBox.hgrow="ALWAYS" spacing="10.0" style="-fx-padding: 15;">
+                  <VBox spacing="10.0" style="-fx-padding: 15;" styleClass="bg_menu_icones" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="Últimas Transações" textFill="#b3cde0">
                            <font>

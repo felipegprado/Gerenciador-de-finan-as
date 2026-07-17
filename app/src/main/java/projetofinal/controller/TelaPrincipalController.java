@@ -233,18 +233,18 @@ public class TelaPrincipalController {
             @Override
             protected void updateItem(Transacao item, boolean empty) {
                 super.updateItem(item, empty);
-                
+
                 if (empty || item == null) {
                     setText(null);
-                    setStyle("-fx-background-color: transparent;"); 
+                    setStyle("-fx-background-color: transparent;");
                 } else {
-                    String linha = String.format("%s  |  %s  |  R$ %.2f", 
-                        item.getData().toString(), 
-                        item.getDescricao(), 
-                        item.getValor());
-                    
+                    String linha = String.format("%s  |  %s  |  R$ %.2f",
+                            item.getData().toString(),
+                            item.getDescricao(),
+                            item.getValor());
+
                     setText(linha);
-                    
+
                     if (item instanceof Ganho) {
                         setStyle("-fx-text-fill: #4CAF50; -fx-font-weight: bold; -fx-background-color: transparent;"); // Verde
                     } else if (item instanceof Gasto) {
@@ -253,6 +253,34 @@ public class TelaPrincipalController {
                 }
             }
         });
+    }
+
+    private void navegarParaBusca(Stage stageAtual) {
+        try {
+            String caminho = "/projetofinal/buscaTransacoes.fxml";
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+            Parent novaTela = loader.load();
+
+            BuscaTransacoesController controller = loader.getController();
+            controller.setUsuario(this.usuarioAtual);
+
+            stageAtual.setScene(new Scene(novaTela));
+            stageAtual.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void EntrarBusca(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaBusca(stage);
+    }
+
+    @FXML
+    void EntrarBuscaClicado(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaBusca(stage);
     }
 
 }
