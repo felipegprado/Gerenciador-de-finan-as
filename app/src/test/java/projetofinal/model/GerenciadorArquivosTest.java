@@ -2,7 +2,6 @@ package projetofinal.model;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
 import projetofinal.model.Exceções.FormatoArquivoInvalidoException;
 import projetofinal.model.Transações.Ganho;
 import projetofinal.model.Transações.Gasto;
@@ -10,6 +9,7 @@ import projetofinal.model.Transações.Transacao;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GerenciadorArquivosTest {
@@ -56,19 +56,22 @@ public class GerenciadorArquivosTest {
         assertEquals("Carteira Recuperada", carteiraRecuperada.getNome());
         assertEquals(2, carteiraRecuperada.getTransacoes().size());
 
-        // Verifica a primeira transação (Valor >= 0, deve ser um Ganho com fonte "Recuperado")
+        // Verifica a primeira transação (Valor >= 0, deve ser um Ganho)
         Transacao t1 = carteiraRecuperada.getTransacoes().get(0);
         assertTrue(t1 instanceof Ganho);
         assertEquals("Salário", t1.getDescricao());
         assertEquals(5000.0, t1.getValor());
         assertEquals("Recuperado", ((Ganho) t1).getFonte());
 
-        // Verifica a segunda transação (Valor < 0, deve ser um Gasto com frequencia "Fixo" e localidade "Desconhecido")
+        // Verifica a segunda transação (Valor < 0, deve ser um Gasto)
         Transacao t2 = carteiraRecuperada.getTransacoes().get(1);
         assertTrue(t2 instanceof Gasto);
         assertEquals("Aluguel", t2.getDescricao());
-        // O gasto converte automaticamente o valor para negativo internamente no getValor, portanto esperamos -1500.0
-        assertEquals(-1500.0, t2.getValor()); 
+        
+        // Em um Gasto, o valor base é positivo, mas a execução o torna negativo
+        assertEquals(1500.0, t2.getValor());
+        assertEquals(-1500.0, t2.executarTransacao());
+        
         assertEquals("Fixo", ((Gasto) t2).getFrequencia());
         assertEquals("Desconhecido", ((Gasto) t2).getLocalidade());
     }
