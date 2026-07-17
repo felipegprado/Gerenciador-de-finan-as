@@ -40,6 +40,7 @@ public class MenuCarteiraController {
         labelNomeCarteira.setText(carteira.getNome());
         labelSaldoCarteira.setText(String.format("Saldo: R$ %.2f", carteira.calcularSaldo()));
         atualizarListaTransacoes();
+        carteira.checarTodosAlertas();
     }
 
     /**
@@ -88,7 +89,20 @@ public class MenuCarteiraController {
 
     @FXML
     void abrirGatilhos(ActionEvent event) {
-        // Lógica para configurar Alertas
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/projetofinal/gatilhos.fxml"));
+            Parent novaTela = loader.load();
+            
+            GatilhosController controller = loader.getController();
+            controller.setDados(usuarioAtual, carteiraSelecionada);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(novaTela));
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("deu ruim no botao de gatilhos alertas");
+            e.printStackTrace();
+        }
     }
 
     @FXML

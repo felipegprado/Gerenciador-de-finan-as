@@ -11,7 +11,7 @@ public abstract class Alerta implements Notificavel {
 
     public abstract void disparar();
 
-    // Métodos de acesso (Getters e Setters) exigidos no UML
+
     public String getMensagem() { 
         return mensagem; 
     }

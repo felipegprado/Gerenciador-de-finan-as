@@ -52,6 +52,10 @@ public class Carteira implements Pesquisavel, Exportavel {
         }
     }
 
+    /**
+     * Método para disparar todos os alertas de uma carteira assim que usamos a
+     * carteira
+     */
     public void checarTodosAlertas() {
         for (Alerta alerta : alertas) {
             if (alerta.verificarGatilho()) {
