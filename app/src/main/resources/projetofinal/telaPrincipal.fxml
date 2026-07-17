@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -162,8 +163,30 @@
                         </Label>
                      </children></VBox>
                   <Pane prefHeight="100.0" prefWidth="127.0" HBox.hgrow="ALWAYS" />
-               </children></HBox>
-            <Pane layoutX="10.0" layoutY="110.0" prefHeight="54.0" prefWidth="1000.0" />
+               </children>
+            </HBox>
+            
+            <Pane layoutX="10.0" layoutY="110.0" prefHeight="40.0" prefWidth="1000.0" />
+            
+            <!-- NOVA SEÇÃO: Retângulo de Histórico -->
+            <HBox prefHeight="220.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Pane prefWidth="45.0" />
+                  <VBox styleClass="bg_menu_icones" HBox.hgrow="ALWAYS" spacing="10.0" style="-fx-padding: 15;">
+                     <children>
+                        <Label text="Últimas Transações" textFill="#b3cde0">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="listaHistorico" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <Pane prefWidth="127.0" />
+               </children>
+            </HBox>
+            
+            <Pane prefHeight="20.0" prefWidth="1000.0" />
          </children>
       </VBox>
    </center>
