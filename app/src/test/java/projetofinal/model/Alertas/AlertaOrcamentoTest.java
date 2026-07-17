@@ -32,21 +32,6 @@ public class AlertaOrcamentoTest {
         assertEquals(0.0, alerta.getValorAtual());
     }
 
-    // @Test
-    // public void deveAcionarGatilhoQuandoAtingirLimite() {
-    //     AlertaOrcamento alerta = new AlertaOrcamento("Aviso de Orçamento", 100.0);
-        
-    //     alerta.atualizarValorAtual(50.0);
-    //     assertEquals(50.0, alerta.getValorAtual());
-    //     assertFalse(alerta.verificarGatilho());
-        
-    //     alerta.atualizarValorAtual(50.0);
-    //     assertEquals(100.0, alerta.getValorAtual());
-    //     assertTrue(alerta.verificarGatilho());
-        
-    //     alerta.atualizarValorAtual(10.0);
-    //     assertTrue(alerta.verificarGatilho());
-    // }
 
     @Test
     public void naoDeveAcionarGatilhoQuandoEstiverInativo() {

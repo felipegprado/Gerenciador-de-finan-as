@@ -33,7 +33,7 @@ public class Carteira implements Pesquisavel, Exportavel {
         this.transacoes.add(t);
 
         if (t instanceof Gasto) {
-            checarOrcamento();  
+            checarOrcamento();
         }
     }
 
@@ -115,7 +115,10 @@ public class Carteira implements Pesquisavel, Exportavel {
         return saldo;
     }
 
-    // Métodos de acesso exigidos pelo UML
+    /**
+     *  Méotodo de acesso de nome
+     * @return String com o nome
+     */
     public String getNome() {
         return nome;
     }
@@ -124,29 +127,71 @@ public class Carteira implements Pesquisavel, Exportavel {
         this.nome = nome;
     }
 
+    /**
+     *  Méotodo de acesso da transação
+     * @return lista com as transações
+     */
     public List<Transacao> getTransacoes() {
         return transacoes;
     }
 
+    /**
+     *  Méotodo de acesso dos alertas
+     * @return lista com os alertas
+     */
     public List<Alerta> getAlertas() {
         return alertas;
     }
 
-    public boolean removerTransacao(Transacao t) {
-        return this.transacoes.remove(t);
+    /**
+     * Método para remover uma transação selecionada
+     * @param transacao transação selecionada
+     * @return booleano que indica se foi possível remover ou não
+     */
+    public boolean removerTransacao(Transacao transacao) {
+        return this.transacoes.remove(transacao);
     }
 
-    public boolean removerAlerta(Alerta a) {
-        return this.alertas.remove(a);
+    /**
+     * Método para remover um alerta selcionado
+     * @param alerta alerta que vai ser retirado
+     * @return booleano que indica se foi possível a remoção
+     */
+    public boolean removerAlerta(Alerta alerta) {
+        return this.alertas.remove(alerta);
     }
 
-    // Métodos stubs para os mapas do UML (serão implementados conforme regras de
-    // negócio posteriores)
+    /**
+     * Método para que seja possível agrupar dados por tags
+     * 
+     * @return retorna um HashMap cpm a tag e o saldo dela
+     */
     public Map<String, Double> getDadosPorTag() {
-        return new HashMap<>();
+        Map<String, Double> resumo = new HashMap<>();
+
+        for (Transacao t : transacoes) {
+            for (String tag : t.getTags()) {
+                double valorAtual = resumo.getOrDefault(tag, 0.0);
+
+                resumo.put(tag, valorAtual + Math.abs(t.getValor()));
+            }
+        }
+        return resumo;
     }
 
+    /**
+     * Método para que seja agrupar dados por mês
+     * @return retorna um hashMap com o mes e o saldo dele
+     */
     public Map<String, Double> getDadosPorMes() {
-        return new HashMap<>();
+        Map<String, Double> resumo = new HashMap<>();
+
+        for (Transacao t : transacoes) {
+            
+            String anoMes = t.getData().toString().substring(0, 7);
+            double saldoAtual = resumo.getOrDefault(anoMes, 0.0);
+            resumo.put(anoMes, saldoAtual + t.executarTransacao());
+        }
+        return resumo;
     }
 }
