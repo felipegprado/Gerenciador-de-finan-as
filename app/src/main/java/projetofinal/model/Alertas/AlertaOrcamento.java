@@ -1,5 +1,8 @@
 package projetofinal.model.Alertas;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 public class AlertaOrcamento extends Alerta {
     private double valorLimite;
     private double valorAtual;
@@ -12,7 +15,7 @@ public class AlertaOrcamento extends Alerta {
 
     public void atualizarValorAtual(double novoValor) {
         this.valorAtual += novoValor;
-        
+
         if (verificarGatilho()) {
             disparar();
         }
@@ -28,16 +31,18 @@ public class AlertaOrcamento extends Alerta {
 
     @Override
     public void enviarNotificacao(String msg) {
-        // TODO: Mudar para o JavaFX quando a view estiver pronta
-        System.out.println("Notificacao: " + msg);
+        Alert janelaAviso = new Alert(AlertType.WARNING);
+        janelaAviso.setTitle("Alerta de Orçamento");
+        janelaAviso.setHeaderText("Atenção! Orçamento Estourado!");
+        janelaAviso.setContentText(msg);
+        janelaAviso.showAndWait();
     }
 
     @Override
     public void disparar() {
-        enviarNotificacao(getMensagem() + " | Limite: " + valorLimite + " | Total gasto: " + valorAtual);
+        enviarNotificacao(getMensagem() + "\nLimite: R$ " + valorLimite + "\nTotal gasto: R$ " + valorAtual);
     }
 
-    // Métodos de acesso exigidos no UML
     public double getValorLimite() {
         return valorLimite;
     }

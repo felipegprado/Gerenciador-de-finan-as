@@ -1,20 +1,97 @@
 package projetofinal.repository;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Type;
+
+import projetofinal.model.Alerta;
+import projetofinal.model.AlertaOrcamento;
+import projetofinal.model.AlertaVencimento;
+import projetofinal.model.Ganho;
+import projetofinal.model.Gasto;
+import projetofinal.model.Transacao;
 import projetofinal.model.Usuario;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path; // coloca o nosso classpath
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class UsuarioRepository {
 
-    private Gson gson = new Gson();
+    private Gson gson;
     private Path caminhoDoArquivo = Paths.get("usuarios.json");
+
+    public UsuarioRepository() {
+        GsonBuilder builder = new GsonBuilder();
+
+        // Registramos um adaptador para ensinar o Gson a ler a classe Transacao
+        builder.registerTypeAdapter(Transacao.class, new JsonDeserializer<Transacao>() {
+            @Override
+            public Transacao deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                    throws JsonParseException {
+                JsonObject jsonObject = json.getAsJsonObject();
+
+                // Verifica se o JSON possui o atributo "fonte" (exclusivo de Ganho)
+                if (jsonObject.has("fonte")) {
+                    return context.deserialize(json, Ganho.class);
+                }
+                // Verifica se o JSON possui o atributo "localidade" ou "frequencia" (exclusivos
+                // de Gasto)
+                else if (jsonObject.has("localidade") || jsonObject.has("frequencia")) {
+                    return context.deserialize(json, Gasto.class);
+                }
+
+                throw new JsonParseException("Tipo de transação desconhecido no JSON.");
+            }
+        });
+
+        builder.registerTypeAdapter(Alerta.class, new JsonDeserializer<Alerta>() {
+            @Override
+            public Alerta deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                    throws JsonParseException {
+                JsonObject jsonObject = json.getAsJsonObject();
+
+                if (jsonObject.has("valorLimite")) {
+                    return context.deserialize(json, AlertaOrcamento.class);
+                }
+                else if (jsonObject.has("dataVencimento")) {
+                    return context.deserialize(json, AlertaVencimento.class);
+                }
+
+                throw new JsonParseException("Tipo de alerta desconhecido no JSON.");
+            }
+        });
+
+        builder.registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+            @Override
+            public JsonElement serialize(LocalDate data, Type typeOfSrc, JsonSerializationContext context) {
+                return new JsonPrimitive(data.toString()); // Salva no formato "YYYY-MM-DD"
+            }
+        });
+
+        builder.registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+            @Override
+            public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                return LocalDate.parse(json.getAsString()); // Lê o formato "YYYY-MM-DD"
+            }
+        });
+
+        this.gson = builder.create();
+    }
 
     public List<Usuario> lerDoJson() {
         try {

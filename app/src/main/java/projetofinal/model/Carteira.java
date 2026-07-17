@@ -33,7 +33,7 @@ public class Carteira implements Pesquisavel, Exportavel {
         this.transacoes.add(t);
 
         if (t instanceof Gasto) {
-            checarOrcamento();
+            checarOrcamento();  
         }
     }
 
@@ -49,7 +49,6 @@ public class Carteira implements Pesquisavel, Exportavel {
         for (Alerta alerta : alertas) {
             if (alerta instanceof AlertaOrcamento) {
                 AlertaOrcamento alertaGasto = (AlertaOrcamento) alerta;
-                // Ajustado para setar o valor absoluto e evitar duplicações no +=
                 alertaGasto.setValorAtual(totalJaGasto);
 
                 if (alertaGasto.verificarGatilho()) {
@@ -59,6 +58,10 @@ public class Carteira implements Pesquisavel, Exportavel {
         }
     }
 
+    /**
+     * Método para disparar todos os alertas de uma carteira assim que usamos a
+     * carteira
+     */
     public void checarTodosAlertas() {
         for (Alerta alerta : alertas) {
             if (alerta.verificarGatilho()) {

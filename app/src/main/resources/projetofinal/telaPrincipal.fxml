@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -60,7 +61,7 @@
       <AnchorPane prefHeight="459.0" prefWidth="200.0" styleClass="bg_menu_icones" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="botaoCarteirasDisponiveis" layoutX="24.0" layoutY="114.0" mnemonicParsing="false" onAction="#EntrarCarteirasDisponiveis" styleClass="menu-item" text="carteiras Disponíveis" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
-            <Button fx:id="botaoGraficos" layoutX="48.0" layoutY="243.0" mnemonicParsing="false" styleClass="menu-item" text="Gráficos" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
+            <Button fx:id="botaoGraficos" layoutX="48.0" layoutY="243.0" mnemonicParsing="false" onAction="#EntrarGraficos" styleClass="menu-item" text="Gráficos" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
             <Button fx:id="botaoHistorico" layoutX="25.0" layoutY="302.0" mnemonicParsing="false" styleClass="menu-item" text="Histórico de produtos" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
             <Button fx:id="botaoGerenciarCarteiras" layoutX="56.0" layoutY="176.0" mnemonicParsing="false" onAction="#EntrarGerenciadorCarteiras" styleClass="menu-item" text="Gerenciar Carteiras" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="10.0" />
             <FontIcon iconColor="#b3cde0" iconLiteral="fas-wallet" iconSize="15" layoutX="24.0" layoutY="138.0" />
@@ -86,7 +87,7 @@
                            <font>
                               <Font name="System Italic" size="20.0" />
                            </font></Label>
-                        <Label fx:id="saldoUsuario" layoutX="156.0" layoutY="15.0" prefHeight="29.0" prefWidth="105.0" text="28.855" textFill="#b3cde0">
+                        <Label fx:id="saldoUsuario" layoutX="156.0" layoutY="15.0" prefHeight="29.0" prefWidth="300.0" text="28.855" textFill="#b3cde0">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -102,7 +103,7 @@
                   <Pane prefHeight="100.0" prefWidth="45.0" />
                   <VBox prefHeight="100.0" prefWidth="180.0" styleClass="bg_botao_central">
                      <children>
-                        <StackPane prefHeight="80.0" prefWidth="184.0">
+                        <StackPane onMouseClicked="#EntrarCarteirasDisponiveisClicado" prefHeight="80.0" prefWidth="184.0">
                            <children>
                               <Circle fill="#043972" radius="28.0" stroke="#002855" strokeType="INSIDE" />
                               <FontIcon iconColor="#b3cde0" iconLiteral="fas-wallet" iconSize="25" />
@@ -133,7 +134,7 @@
                   <Pane layoutX="226.0" layoutY="10.0" prefHeight="100.0" prefWidth="45.0" />
                   <VBox layoutX="271.0" layoutY="10.0" prefHeight="100.0" prefWidth="171.0" styleClass="bg_botao_central">
                      <children>
-                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <StackPane onMouseClicked="#EntrarGraficosClicado" prefHeight="150.0" prefWidth="200.0">
                            <children>
                               <Circle fill="#043972" radius="28.0" stroke="#002855" strokeType="INSIDE" />
                               <FontIcon iconColor="#b3cde0" iconLiteral="fas-chart-line" iconSize="25" />
@@ -162,8 +163,30 @@
                         </Label>
                      </children></VBox>
                   <Pane prefHeight="100.0" prefWidth="127.0" HBox.hgrow="ALWAYS" />
-               </children></HBox>
-            <Pane layoutX="10.0" layoutY="110.0" prefHeight="54.0" prefWidth="1000.0" />
+               </children>
+            </HBox>
+            
+            <Pane layoutX="10.0" layoutY="110.0" prefHeight="40.0" prefWidth="1000.0" />
+            
+            <!-- NOVA SEÇÃO: Retângulo de Histórico -->
+            <HBox prefHeight="220.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Pane prefWidth="45.0" />
+                  <VBox styleClass="bg_menu_icones" HBox.hgrow="ALWAYS" spacing="10.0" style="-fx-padding: 15;">
+                     <children>
+                        <Label text="Últimas Transações" textFill="#b3cde0">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="listaHistorico" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <Pane prefWidth="127.0" />
+               </children>
+            </HBox>
+            
+            <Pane prefHeight="20.0" prefWidth="1000.0" />
          </children>
       </VBox>
    </center>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="15.0" style="-fx-padding: 30; -fx-background-color: #001233;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projetofinal.controller.GraficosController">
+    <children>
+        <Label text="RELATÓRIOS E GRÁFICOS" textFill="#b3cde0">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+        </Label>
+        <HBox alignment="CENTER" spacing="15.0">
+            <children>
+                <Label text="Filtrar por Carteira:" textFill="#b3cde0">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="comboFiltroCarteira" onAction="#atualizarGraficos" prefWidth="250.0" promptText="Todas as Carteiras" />
+            </children>
+        </HBox>
+        <!-- Painel de Abas para separar os gráficos -->
+        <TabPane prefHeight="450.0" prefWidth="740.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab text="Distribuição">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #979DAC;">
+                            <children>
+                                <PieChart fx:id="graficoPizza" layoutX="120.0" layoutY="10.0" prefHeight="400.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Fluxo Financeiro">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #979DAC;">
+                            <children>
+                                <BarChart fx:id="graficoBarras" layoutX="120.0" layoutY="11.0" prefHeight="400.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                    <xAxis>
+                                        <CategoryAxis label="Categorias" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Valor (R$)" side="LEFT" />
+                                    </yAxis>
+                                </BarChart>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <Button mnemonicParsing="false" onAction="#voltar" prefHeight="40.0" prefWidth="200.0" styleClass="meu-botao" text="Voltar ao Menu" />
+    </children>
+</VBox>

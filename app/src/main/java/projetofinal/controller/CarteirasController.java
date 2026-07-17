@@ -28,6 +28,32 @@ public class CarteirasController {
 
     @FXML
     void abrirCarteiraSelecionada(ActionEvent event) {
+        String nomeSelecionado = listaCarteiras.getSelectionModel().getSelectedItem();
+
+        if (nomeSelecionado != null) {
+            Carteira carteiraEscolhida = null;
+            for (Carteira c : usuarioAtual.getCarteiras()) {
+                if (c.getNome().equals(nomeSelecionado)) {
+                    carteiraEscolhida = c;
+                    break;
+                }
+            }
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/projetofinal/menuCarteira.fxml"));
+                Parent novaTela = loader.load();
+
+                // Obter o controlador da nova tela e passar os dados
+                MenuCarteiraController controller = loader.getController();
+                controller.setDados(usuarioAtual, carteiraEscolhida);
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(novaTela));
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 

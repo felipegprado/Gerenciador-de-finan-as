@@ -1,5 +1,10 @@
 package projetofinal.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,9 +13,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import projetofinal.model.Carteira;
+import projetofinal.model.Ganho;
+import projetofinal.model.Gasto;
+import projetofinal.model.Transacao;
 import projetofinal.model.Usuario;
 
 public class TelaPrincipalController {
@@ -36,6 +47,9 @@ public class TelaPrincipalController {
     @FXML
     private StackPane segundoBotaocarteirasDisponiveis;
 
+    @FXML
+    private ListView<Transacao> listaHistorico;
+
     /** Atributo para armazenar o usuário que acabou de entrar */
     private Usuario usuarioAtual;
 
@@ -48,6 +62,7 @@ public class TelaPrincipalController {
     public void setUsuario(Usuario usuario) {
         this.usuarioAtual = usuario;
         this.atualizaSaldo();
+        this.carregarHistorico();
     }
 
     public Usuario getUsuario() {
@@ -97,6 +112,22 @@ public class TelaPrincipalController {
         }
     }
 
+    private void navegarParaGraficos(Stage stageAtual) {
+        try {
+            String caminho = "/projetofinal/graficos.fxml";
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+            Parent novaTela = loader.load();
+
+            GraficosController controller = loader.getController();
+            controller.setUsuario(this.usuarioAtual);
+
+            stageAtual.setScene(new Scene(novaTela));
+            stageAtual.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Método para gerenciar o botão que volta para a tela de Login.
      * 
@@ -134,9 +165,10 @@ public class TelaPrincipalController {
     }
 
     /**
-     * Método identico ao do botão
+     * Método identico ao do botão ,mas tive que adpatar porque não usei um botão
+     * aqui.
+     * 
      * @see EntrarGerenciadorCarteiras
-     *      ,mas tive que adpatar porque não usei um botão aqui.
      * @param event
      */
     @FXML
@@ -149,6 +181,78 @@ public class TelaPrincipalController {
     void EntrarCarteirasDisponiveis(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         navegarParaCarteirasDisponiveis(stage);
+    }
+
+    @FXML
+    void EntrarCarteirasDisponiveisClicado(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaCarteirasDisponiveis(stage);
+
+    }
+
+    @FXML
+    void EntrarGraficos(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaGraficos(stage);
+    }
+
+    @FXML
+    void EntrarGraficosClicado(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        navegarParaGraficos(stage);
+    }
+
+    /**
+     * Método que tem a função de pegar todas as transações do usuário
+     * e listar na tela principal em ordem cronologica.
+     */
+    private void carregarHistorico() {
+        ObservableList<Transacao> historicoVisual = FXCollections.observableArrayList();
+        List<Transacao> todasTransacoes = new ArrayList<>();
+
+        if (usuarioAtual.getCarteiras() != null) {
+            for (Carteira c : usuarioAtual.getCarteiras()) {
+                if (c.getTransacoes() != null) {
+                    todasTransacoes.addAll(c.getTransacoes());
+                }
+            }
+        }
+
+        todasTransacoes.sort((t1, t2) -> t2.getData().compareTo(t1.getData()));
+
+        /* quero definir que vai ter no máixmo 7 operações */
+        int limite = Math.min(todasTransacoes.size(), 7);
+        for (int i = 0; i < limite; i++) {
+            historicoVisual.add(todasTransacoes.get(i));
+        }
+
+        listaHistorico.setItems(historicoVisual);
+
+        /* posso refatorar depois no arquivo css */
+        listaHistorico.setCellFactory(listView -> new ListCell<Transacao>() {
+            @Override
+            protected void updateItem(Transacao item, boolean empty) {
+                super.updateItem(item, empty);
+                
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("-fx-background-color: transparent;"); 
+                } else {
+                    String linha = String.format("%s  |  %s  |  R$ %.2f", 
+                        item.getData().toString(), 
+                        item.getDescricao(), 
+                        item.getValor());
+                    
+                    setText(linha);
+                    
+                    if (item instanceof Ganho) {
+                        setStyle("-fx-text-fill: #4CAF50; -fx-font-weight: bold; -fx-background-color: transparent;"); // Verde
+                    } else if (item instanceof Gasto) {
+                        setStyle("-fx-text-fill: #F44336; -fx-font-weight: bold; -fx-background-color: transparent;"); // Vermelho
+                    }
+                }
+            }
+        });
     }
 
 }
