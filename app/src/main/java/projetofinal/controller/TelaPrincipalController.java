@@ -19,10 +19,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import projetofinal.model.Carteira;
-import projetofinal.model.Ganho;
-import projetofinal.model.Gasto;
-import projetofinal.model.Transacao;
 import projetofinal.model.Usuario;
+import projetofinal.model.Transações.Ganho;
+import projetofinal.model.Transações.Gasto;
+import projetofinal.model.Transações.Transacao;
 
 public class TelaPrincipalController {
 

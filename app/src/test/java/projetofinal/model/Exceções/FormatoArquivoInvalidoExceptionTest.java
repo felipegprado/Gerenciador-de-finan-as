@@ -1,4 +1,4 @@
-package projetofinal.model;
+package projetofinal.model.Exceções;
 
 import org.junit.jupiter.api.Test;
 

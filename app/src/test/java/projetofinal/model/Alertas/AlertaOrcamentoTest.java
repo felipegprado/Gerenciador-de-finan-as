@@ -1,4 +1,4 @@
-package projetofinal.model;
+package projetofinal.model.Alertas;
 
 import org.junit.jupiter.api.Test;
 

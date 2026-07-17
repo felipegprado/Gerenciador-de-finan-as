@@ -1,5 +1,15 @@
 package projetofinal.repository;
 
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path; // coloca o nosso classpath
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -11,24 +21,13 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import java.lang.reflect.Type;
-
-import projetofinal.model.Alerta;
-import projetofinal.model.AlertaOrcamento;
-import projetofinal.model.AlertaVencimento;
-import projetofinal.model.Ganho;
-import projetofinal.model.Gasto;
-import projetofinal.model.Transacao;
 import projetofinal.model.Usuario;
-
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path; // coloca o nosso classpath
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import projetofinal.model.Alertas.Alerta;
+import projetofinal.model.Alertas.AlertaOrcamento;
+import projetofinal.model.Alertas.AlertaVencimento;
+import projetofinal.model.Transações.Ganho;
+import projetofinal.model.Transações.Gasto;
+import projetofinal.model.Transações.Transacao;
 
 public class UsuarioRepository {
 

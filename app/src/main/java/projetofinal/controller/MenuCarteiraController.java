@@ -12,8 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import projetofinal.model.Carteira;
-import projetofinal.model.Transacao;
 import projetofinal.model.Usuario;
+import projetofinal.model.Transações.Transacao;
 
 public class MenuCarteiraController {
 
