@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import projetofinal.model.Usuario;
+import projetofinal.model.Transações.Transacao;
 
 public class TelaPrincipalControllerTest {
 
@@ -28,10 +30,13 @@ public class TelaPrincipalControllerTest {
     public void setup() throws Exception {
         controller = new TelaPrincipalController();
 
-        // Injeta a Label que será atualizada na tela principal
         Field field = controller.getClass().getDeclaredField("saldoUsuario");
         field.setAccessible(true);
         field.set(controller, new Label());
+
+        Field fieldLista = controller.getClass().getDeclaredField("listaHistorico");
+        fieldLista.setAccessible(true);
+        fieldLista.set(controller, new ListView<Transacao>());
     }
 
     @Test

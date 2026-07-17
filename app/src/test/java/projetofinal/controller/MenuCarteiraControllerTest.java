@@ -67,6 +67,6 @@ public class MenuCarteiraControllerTest {
 
         // Verifica se os valores corretos foram inseridos nos componentes visuais[cite: 19]
         assertEquals("Carteira Viagem", labelNome.getText());
-        assertEquals("Saldo: R$ 250.50", labelSaldo.getText());
+        assertEquals(String.format("Saldo: R$ %.2f", 250.50), labelSaldo.getText());
     }
 }

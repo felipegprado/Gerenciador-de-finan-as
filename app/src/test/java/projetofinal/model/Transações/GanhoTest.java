@@ -1,11 +1,10 @@
 package projetofinal.model.Transações;
 
-import org.junit.jupiter.api.Test;
-
-import projetofinal.model.Transações.Ganho;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 public class GanhoTest {
 

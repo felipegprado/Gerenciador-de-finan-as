@@ -1,11 +1,10 @@
 package projetofinal.model.Transações;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-
-import projetofinal.model.Transações.Gasto;
 
 public class GastoTest {
 
@@ -21,15 +20,6 @@ public class GastoTest {
     }
 
     @Test
-    public void deveRetornarValorNegativoParaDescontoNoSaldo() {
-        Gasto gasto = new Gasto(50.0, "Padaria", "11/10/2023", Arrays.asList("Alimentacao"), "Diário", "Esquina");
-
-        // O valor deve ser convertido para negativo automaticamente
-        assertEquals(-50.0, gasto.getValor());
-        
-    }
-
-    @Test
     public void devePermitirAlterarFrequenciaELocalidadeViaSetters() {
         Gasto gasto = new Gasto(100.0, "Gasolina", "15/10/2023", Arrays.asList("Transporte"), "Semanal", "Posto A");
         
@@ -38,5 +28,14 @@ public class GastoTest {
         
         assertEquals("Quinzenal", gasto.getFrequencia());
         assertEquals("Posto B", gasto.getLocalidade());
+    }
+
+    @Test
+    public void deveRetornarValorNegativoParaDescontoNoSaldo() {
+        Gasto gasto = new Gasto(50.0, "Padaria", "11/10/2023", Arrays.asList("Alimentacao"), "Diário", "Esquina");
+        
+        // Correção: O valor puro é positivo, a transação converte para negativo
+        assertEquals(50.0, gasto.getValor());
+        assertEquals(-50.0, gasto.executarTransacao());
     }
 }

@@ -1,10 +1,8 @@
 package projetofinal.model.Exceções;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
-
-import projetofinal.model.Exceções.OrcamentoEstouradoException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class OrcamentoEstouradoExceptionTest {
 
