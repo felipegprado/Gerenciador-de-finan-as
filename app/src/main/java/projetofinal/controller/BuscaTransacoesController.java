@@ -1,5 +1,7 @@
 package projetofinal.controller;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,9 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import projetofinal.model.Carteira;
 import projetofinal.model.Usuario;
+import projetofinal.model.Interfaces.Pesquisavel;
 import projetofinal.model.Transações.Transacao;
-
-import java.util.List;
 
 /**
  * Controller para a tela de Busca
